@@ -365,107 +365,50 @@ export default function Discover() {
 
       {/* Modal */}
       {selectedImage && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="relative max-w-4xl w-full max-h-[90vh] bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
-            {/* Close Button */}
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 z-10 p-2 bg-black/20 hover:bg-black/40 rounded-full backdrop-blur-sm transition-colors"
-            >
-              <X size={20} className="text-white" />
-            </button>
+        <div className="fixed inset-0 bg-black z-50 flex flex-col">
+          {/* Close Button */}
+          <button
+            onClick={closeModal}
+            className="absolute top-4 right-4 z-10 p-3 bg-black/50 hover:bg-black/70 rounded-full backdrop-blur-sm transition-colors"
+          >
+            <X size={24} className="text-white" />
+          </button>
 
-            <div className="flex flex-col lg:flex-row h-full">
-              {/* Image Section */}
-              <div className="flex-1 relative bg-gray-100 dark:bg-gray-800 flex items-center justify-center min-h-[300px] lg:min-h-[500px]">
-                <img
-                  src={selectedImage.image}
-                  alt={selectedImage.title}
-                  className="max-w-full max-h-full object-contain"
-                />
-              </div>
+          {/* Full Screen Image */}
+          <div className="flex-1 flex items-center justify-center p-4">
+            <img
+              src={selectedImage.image}
+              alt={selectedImage.title}
+              className="max-w-full max-h-full object-contain"
+            />
+          </div>
 
-              {/* Info Section */}
-              <div className="w-full lg:w-80 p-6 flex flex-col">
-                {/* Header */}
-                <div className="flex items-center gap-3 mb-4">
+          {/* Bottom Prompt Section */}
+          <div className="bg-black/80 backdrop-blur-sm p-4 sm:p-6">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
                   <img
                     src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
                     alt="User"
                     className="w-8 h-8 rounded-full"
                   />
                   <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white">melvindave</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{selectedImage.timestamp}</p>
+                    <h3 className="font-medium text-white">melvindave</h3>
+                    <p className="text-sm text-gray-300">{selectedImage.timestamp}</p>
                   </div>
                 </div>
-
-                {/* Title */}
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                  {selectedImage.title}
-                </h2>
-
-                {/* Prompt */}
-                <div className="mb-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">Prompt</h4>
-                    <button
-                      onClick={handleCopyPrompt}
-                      className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-                      title="Copy prompt"
-                    >
-                      <Copy size={14} className="text-gray-500 dark:text-gray-400" />
-                    </button>
-                  </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                    {selectedImage.prompt}
-                  </p>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-2 mb-6">
-                  <button
-                    onClick={() => handleLike(selectedImage.id)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
-                  >
-                    <Heart size={16} />
-                    <span className="text-sm">Like</span>
-                  </button>
-                  <button
-                    onClick={() => handleShare(selectedImage.id)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
-                  >
-                    <Share2 size={16} />
-                    <span className="text-sm">Share</span>
-                  </button>
-                </div>
-
-                {/* Download Button */}
                 <button
-                  onClick={() => handleDownload(selectedImage.id)}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+                  onClick={handleCopyPrompt}
+                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                  title="Copy prompt"
                 >
-                  <Download size={16} />
-                  Download
+                  <Copy size={16} className="text-gray-300" />
                 </button>
-
-                {/* Remix Section */}
-                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-6 h-6 bg-blue-600 rounded-sm flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">R</span>
-                    </div>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">Remix</span>
-                  </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-                    Same image, but the bullets are lower, more staggered, and more on the left side of the screen
-                  </p>
-                  <button className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors text-sm">
-                    <MessageCircle size={14} />
-                    Try this remix
-                  </button>
-                </div>
               </div>
+              <p className="text-white leading-relaxed text-sm sm:text-base">
+                {selectedImage.prompt}
+              </p>
             </div>
           </div>
         </div>
