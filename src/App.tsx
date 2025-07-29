@@ -15,9 +15,17 @@ import LanguageRegionPage from './components/LanguageRegionPage';
 import PricingPage from './components/PricingPage';
 import AccountSettings from './components/AccountSetting';
 
+export interface Message {
+  id: string;
+  content: string;
+  timestamp: Date;
+  isUser: boolean;
+}
+
 export interface ChatThread {
   id: string;
   title: string;
+  messages: Message[];
 }
 
 export default function App() {
@@ -29,7 +37,18 @@ export default function App() {
     'home' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing'
   >('home');
 
-  const [chatThreads, setChatThreads] = useState<ChatThread[]>([{id: '1', title: 'Welcome Thread'}, {id: '2', title: 'Sample Thread'}, {id: '3', title: 'Another Thread'}, {id: '4', title: 'Test Thread'}, {id: '5', title: 'Example Thread'}, {id: '6', title: 'Demo Thread'}, {id: '7', title: 'Chat Thread 1'}, {id: '8', title: 'Chat Thread 2'}, {id: '9', title: 'Chat Thread 3'}, {id: '10', title: 'Chat Thread 4'}]);
+  const [chatThreads, setChatThreads] = useState<ChatThread[]>([
+    {id: '1', title: 'Welcome Thread', messages: []},
+    {id: '2', title: 'Sample Thread', messages: []},
+    {id: '3', title: 'Another Thread', messages: []},
+    {id: '4', title: 'Test Thread', messages: []},
+    {id: '5', title: 'Example Thread', messages: []},
+    {id: '6', title: 'Demo Thread', messages: []},
+    {id: '7', title: 'Chat Thread 1', messages: []},
+    {id: '8', title: 'Chat Thread 2', messages: []},
+    {id: '9', title: 'Chat Thread 3', messages: []},
+    {id: '10', title: 'Chat Thread 4', messages: []}
+  ]);
   const [activeChatId, setActiveChatId] = useState<string | null>(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
@@ -77,6 +96,7 @@ export default function App() {
     const newThread: ChatThread = {
       id: Date.now().toString(),
       title: query,
+      messages: [],
     };
     setChatThreads(prev => [newThread, ...prev]);
     setActiveChatId(newThread.id);
