@@ -14,6 +14,7 @@ import AppearancePage from './components/AppearancePage';
 import LanguageRegionPage from './components/LanguageRegionPage';
 import PricingPage from './components/PricingPage';
 import AccountSettings from './components/AccountSetting';
+import ForgotPassword from './components/ForgotPassword';
 
 export interface Message {
   id: string;
@@ -30,7 +31,7 @@ export interface ChatThread {
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<
-    'home' | 'library' | 'discover' | 'thumbnail' | 'news' | 'settings' | 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing'
+    'home' | 'library' | 'discover' | 'thumbnail' | 'news' | 'settings' | 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing' | 'forgot-password'
   >('login');
 
   const [currentView, setCurrentView] = useState<
@@ -80,6 +81,7 @@ export default function App() {
 
   const handleSwitchToSignUp = () => setCurrentPage('signup');
   const handleSwitchToLogin = () => setCurrentPage('login');
+  const handleSwitchToForgotPassword = () => setCurrentPage('forgot-password');
 
   const generateResponse = (query: string): string => {
     const lower = query.toLowerCase();
@@ -129,8 +131,9 @@ export default function App() {
       )}
 
       <main className="flex-1 overflow-auto w-full">
-        {currentPage === 'login' && <Login onSwitchToSignUp={handleSwitchToSignUp} />}
+        {currentPage === 'login' && <Login onSwitchToSignUp={handleSwitchToSignUp} onSwitchToForgotPassword={handleSwitchToForgotPassword} />}
         {currentPage === 'signup' && <SignUp onSwitchToLogin={handleSwitchToLogin} />}
+        {currentPage === 'forgot-password' && <ForgotPassword onBackToLogin={handleSwitchToLogin} />}
 
         {currentPage !== 'login' && currentPage !== 'signup' && (
           <>
@@ -144,7 +147,7 @@ export default function App() {
               </svg>
             </button> */}
 
-            {currentView === 'home' && currentPage === 'home' && (
+            {currentView === 'home' && currentPage === 'home' && currentPage !== 'forgot-password' && (
               <div className="max-w-5xl mx-auto px-4 py-6">
                 <div className="text-center mb-8">
                   <h1 className="text-4xl font-bold text-gray-900 dark:text-white">triveni</h1>
@@ -153,11 +156,11 @@ export default function App() {
               </div>
             )}
 
-            {currentPage === 'library' && <Library />}
-            {currentPage === 'discover' && <Discover />}
-            {currentPage === 'news' && <News />}
-            {currentPage === 'thumbnail' && <Thumbnail />}
-             {currentPage === 'settings' && (
+            {currentPage === 'library' && currentPage !== 'forgot-password' && <Library />}
+            {currentPage === 'discover' && currentPage !== 'forgot-password' && <Discover />}
+            {currentPage === 'news' && currentPage !== 'forgot-password' && <News />}
+            {currentPage === 'thumbnail' && currentPage !== 'forgot-password' && <Thumbnail />}
+             {currentPage === 'settings' && currentPage !== 'forgot-password' && (
                 <SettingsPage
                 onBack={handleBackToHome} 
                   onAccountSettings={handleShowAccountSettings}
@@ -166,11 +169,11 @@ export default function App() {
                   onLanguageRegion={handleShowLanguageRegion} 
                 />
         )}
-        { currentPage === 'account' && <AccountSettings onBack={handleBackToHome} />}
-        { currentPage === 'privacy' && <PrivacySecurity onBack={handleBackToHome} />}
-        { currentPage === 'appearance' && <AppearancePage onBack={handleBackToHome} />}
-        { currentPage === 'language' && <LanguageRegionPage onBack={handleBackToHome} />}
-        { currentPage === 'pricing' && <PricingPage onBack={handleBackToHome} />}
+        { currentPage === 'account' && currentPage !== 'forgot-password' && <AccountSettings onBack={handleBackToHome} />}
+        { currentPage === 'privacy' && currentPage !== 'forgot-password' && <PrivacySecurity onBack={handleBackToHome} />}
+        { currentPage === 'appearance' && currentPage !== 'forgot-password' && <AppearancePage onBack={handleBackToHome} />}
+        { currentPage === 'language' && currentPage !== 'forgot-password' && <LanguageRegionPage onBack={handleBackToHome} />}
+        { currentPage === 'pricing' && currentPage !== 'forgot-password' && <PricingPage onBack={handleBackToHome} />}
 
             {/* Settings Pages and Subviews */}
             {/* {currentView === 'account' && <AccountSettings onBack={handleBackToHome} />}

@@ -4,8 +4,8 @@ import ThemeToggle from './ThemeToggle';
 import { ChatThread } from '../App';
 
 interface SidebarProps {
-  currentPage: 'home' | 'library' | 'discover' | 'thumbnail' | 'news'| 'settings'| 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing';
-  setCurrentPage: (page: 'home' | 'library' | 'discover' | 'thumbnail' | 'news' | 'settings' | 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing') => void;
+  currentPage: 'home' | 'library' | 'discover' | 'thumbnail' | 'news'| 'settings'| 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing' | 'forgot-password';
+  setCurrentPage: (page: 'home' | 'library' | 'discover' | 'thumbnail' | 'news' | 'settings' | 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing' | 'forgot-password') => void;
   chatThreads: ChatThread[];
   activeChatId: string | null;
   setActiveChatId: (id: string | null) => void;

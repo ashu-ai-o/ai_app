@@ -3,9 +3,10 @@ import { Eye, EyeOff, ArrowRight } from 'lucide-react';
 
 interface LoginProps {
   onSwitchToSignUp: () => void;
+  onSwitchToForgotPassword: () => void;
 }
 
-export default function Login({ onSwitchToSignUp }: LoginProps) {
+export default function Login({ onSwitchToSignUp, onSwitchToForgotPassword }: LoginProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false);
@@ -84,6 +85,7 @@ export default function Login({ onSwitchToSignUp }: LoginProps) {
             </label>
             <button
               type="button"
+              onClick={onSwitchToForgotPassword}
               className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
             >
               Forgot password?
