@@ -367,21 +367,27 @@ export default function Discover() {
       {selectedImage && (
         <div className="fixed inset-0 bg-black z-50 flex flex-col">
           {/* Top Navbar */}
-          <div className="bg-black/90 backdrop-blur-sm border-b border-gray-800 px-4 py-3">
+          <div className="bg-black/30 backdrop-blur-sm px-4 py-3">
             <div className="flex items-center justify-between">
-              {/* Left side - User info and title */}
-              <div className="flex items-center gap-3">
-                <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
-                  alt="User"
-                  className="w-8 h-8 rounded-full"
-                />
-                <div className="flex items-center gap-2">
-                  <span className="text-white font-medium">fabricoost</span>
-                  <span className="text-gray-400">•</span>
+              {/* Left side - Logo */}
+              <div className="flex items-center">
+                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                  <div className="w-5 h-5 bg-black rounded-sm flex items-center justify-center">
+                    <div className="w-3 h-3 bg-white rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Center - User info and title */}
+              <div className="flex flex-col items-center">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-white font-medium">danny_particle</span>
+                  <span className="text-gray-300">•</span>
                   <span className="text-white font-medium">{selectedImage.title}</span>
                 </div>
-                <span className="text-gray-400 text-sm">{selectedImage.timestamp}</span>
+                <div className="text-gray-300 text-sm">
+                  Jul 28, 4:06PM
+                </div>
               </div>
 
               {/* Right side - Actions */}
@@ -391,7 +397,7 @@ export default function Discover() {
                   className="flex items-center gap-2 px-3 py-1.5 hover:bg-white/10 rounded-lg transition-colors"
                 >
                   <Heart size={16} className="text-white" />
-                  <span className="text-white text-sm">304</span>
+                  <span className="text-white text-sm">464</span>
                 </button>
                 
                 <button
@@ -410,9 +416,11 @@ export default function Discover() {
                   <Share2 size={16} className="text-white" />
                 </button>
                 
-                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm font-medium">A</span>
-                </div>
+                <img
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
+                  alt="User"
+                  className="w-8 h-8 rounded-full"
+                />
                 
                 <button
                   onClick={closeModal}
