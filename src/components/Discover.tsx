@@ -366,46 +366,76 @@ export default function Discover() {
       {/* Modal */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black z-50 flex flex-col">
-          {/* Close Button */}
-          <button
-            onClick={closeModal}
-            className="absolute top-4 right-4 z-10 p-3 bg-black/50 hover:bg-black/70 rounded-full backdrop-blur-sm transition-colors"
-          >
-            <X size={24} className="text-white" />
-          </button>
+          {/* Top Navbar */}
+          <div className="bg-black/90 backdrop-blur-sm border-b border-gray-800 px-4 py-3">
+            <div className="flex items-center justify-between">
+              {/* Left side - User info and title */}
+              <div className="flex items-center gap-3">
+                <img
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
+                  alt="User"
+                  className="w-8 h-8 rounded-full"
+                />
+                <div className="flex items-center gap-2">
+                  <span className="text-white font-medium">fabricoost</span>
+                  <span className="text-gray-400">•</span>
+                  <span className="text-white font-medium">{selectedImage.title}</span>
+                </div>
+                <span className="text-gray-400 text-sm">{selectedImage.timestamp}</span>
+              </div>
 
-          {/* Full Screen Image */}
-          <div className="flex-1 flex items-center justify-center p-4">
+              {/* Right side - Actions */}
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleLike(selectedImage.id)}
+                  className="flex items-center gap-2 px-3 py-1.5 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <Heart size={16} className="text-white" />
+                  <span className="text-white text-sm">304</span>
+                </button>
+                
+                <button
+                  onClick={handleCopyPrompt}
+                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                  title="Copy prompt"
+                >
+                  <Copy size={16} className="text-white" />
+                </button>
+                
+                <button
+                  onClick={() => handleShare(selectedImage.id)}
+                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                  title="Share"
+                >
+                  <Share2 size={16} className="text-white" />
+                </button>
+                
+                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                  <span className="text-white text-sm font-medium">A</span>
+                </div>
+                
+                <button
+                  onClick={closeModal}
+                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <X size={20} className="text-white" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Full Size Image */}
+          <div className="flex-1 flex items-center justify-center">
             <img
               src={selectedImage.image}
               alt={selectedImage.title}
-              className="max-w-full max-h-full object-contain"
+              className="w-full h-full object-cover"
             />
           </div>
 
           {/* Bottom Prompt Section */}
           <div className="bg-black/80 backdrop-blur-sm p-4 sm:p-6">
             <div className="max-w-4xl mx-auto">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <img
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
-                    alt="User"
-                    className="w-8 h-8 rounded-full"
-                  />
-                  <div>
-                    <h3 className="font-medium text-white">melvindave</h3>
-                    <p className="text-sm text-gray-300">{selectedImage.timestamp}</p>
-                  </div>
-                </div>
-                <button
-                  onClick={handleCopyPrompt}
-                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-                  title="Copy prompt"
-                >
-                  <Copy size={16} className="text-gray-300" />
-                </button>
-              </div>
               <p className="text-white leading-relaxed text-sm sm:text-base">
                 {selectedImage.prompt}
               </p>
