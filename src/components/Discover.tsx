@@ -220,6 +220,40 @@ export default function Discover() {
     setSelectedImage(image);
   };
 
+  const handlePreviousImage = () => {
+    if (selectedImage) {
+      const currentIndex = generatedImages.findIndex(img => img.id === selectedImage.id);
+      const previousIndex = currentIndex > 0 ? currentIndex - 1 : generatedImages.length - 1;
+      setSelectedImage(generatedImages[previousIndex]);
+    }
+  };
+
+  const handleNextImage = () => {
+    if (selectedImage) {
+      const currentIndex = generatedImages.findIndex(img => img.id === selectedImage.id);
+      const nextIndex = currentIndex < generatedImages.length - 1 ? currentIndex + 1 : 0;
+      setSelectedImage(generatedImages[nextIndex]);
+    }
+  };
+
+  const getPreviousImage = () => {
+    if (selectedImage) {
+      const currentIndex = generatedImages.findIndex(img => img.id === selectedImage.id);
+      const previousIndex = currentIndex > 0 ? currentIndex - 1 : generatedImages.length - 1;
+      return generatedImages[previousIndex];
+    }
+    return null;
+  };
+
+  const getNextImage = () => {
+    if (selectedImage) {
+      const currentIndex = generatedImages.findIndex(img => img.id === selectedImage.id);
+      const nextIndex = currentIndex < generatedImages.length - 1 ? currentIndex + 1 : 0;
+      return generatedImages[nextIndex];
+    }
+    return null;
+  };
+
   const closeModal = () => {
     setSelectedImage(null);
   };
@@ -433,12 +467,61 @@ export default function Discover() {
           </div>
 
           {/* Centered Image with Black Sidebars */}
-          <div className="flex-1 flex items-center justify-center bg-black">
-            <img
-              src={selectedImage.image}
-              alt={selectedImage.title}
-              className="max-w-full max-h-full object-contain"
-            />
+          <div className="flex-1 flex items-center justify-center bg-black relative">
+            {/* Previous Image (Left) */}
+            {getPreviousImage() && (
+              <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
+                <button
+                  onClick={handlePreviousImage}
+                  className="group relative"
+                >
+                  <img
+                    src={getPreviousImage()?.image}
+                    alt="Previous"
+                    className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-cover rounded-lg blur-sm opacity-60 group-hover:opacity-80 group-hover:blur-none transition-all duration-300"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-8 h-8 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            )}
+
+            {/* Main Image */}
+            <div className="flex items-center justify-center max-w-full max-h-full">
+              <img
+                src={selectedImage.image}
+                alt={selectedImage.title}
+                className="max-w-full max-h-full object-contain"
+              />
+            </div>
+
+            {/* Next Image (Right) */}
+            {getNextImage() && (
+              <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
+                <button
+                  onClick={handleNextImage}
+                  className="group relative"
+                >
+                  <img
+                    src={getNextImage()?.image}
+                    alt="Next"
+                    className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-cover rounded-lg blur-sm opacity-60 group-hover:opacity-80 group-hover:blur-none transition-all duration-300"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-8 h-8 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Prompt Section Below Image */}
