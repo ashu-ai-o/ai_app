@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trash2, MoreHorizontal, Filter, Bell, User, Heart, Download, Menu } from 'lucide-react';
+import { Trash2, MoreHorizontal, Filter, Bell, User, Heart, Download, Menu, X, Copy, Share2, Edit, RotateCcw, Video } from 'lucide-react';
 
 interface GeneratedImage {
   id: string;
@@ -192,6 +192,7 @@ const generatedImages: GeneratedImage[] = [
 export default function Library() {
   const [hoveredImage, setHoveredImage] = React.useState<string | null>(null);
   const [showMoreMenu, setShowMoreMenu] = React.useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = React.useState<GeneratedImage | null>(null);
 
   const handleDeleteImage = (id: string) => {
     console.log('Delete image:', id);
@@ -207,112 +208,323 @@ export default function Library() {
     setShowMoreMenu(null);
   };
 
+  const handleImageClick = (image: GeneratedImage) => {
+    setSelectedImage(image);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
+  const handleCopyPrompt = () => {
+    if (selectedImage) {
+      navigator.clipboard.writeText(selectedImage.prompt);
+    }
+  };
+
+  const handlePreviousImage = () => {
+    if (selectedImage) {
+      const currentIndex = generatedImages.findIndex(img => img.id === selectedImage.id);
+      const previousIndex = currentIndex > 0 ? currentIndex - 1 : generatedImages.length - 1;
+      setSelectedImage(generatedImages[previousIndex]);
+    }
+  };
+
+  const handleNextImage = () => {
+    if (selectedImage) {
+      const currentIndex = generatedImages.findIndex(img => img.id === selectedImage.id);
+      const nextIndex = currentIndex < generatedImages.length - 1 ? currentIndex + 1 : 0;
+      setSelectedImage(generatedImages[nextIndex]);
+    }
+  };
+
+  const getPreviousImage = () => {
+    if (selectedImage) {
+      const currentIndex = generatedImages.findIndex(img => img.id === selectedImage.id);
+      const previousIndex = currentIndex > 0 ? currentIndex - 1 : generatedImages.length - 1;
+      return generatedImages[previousIndex];
+    }
+    return null;
+  };
+
+  const getNextImage = () => {
+    if (selectedImage) {
+      const currentIndex = generatedImages.findIndex(img => img.id === selectedImage.id);
+      const nextIndex = currentIndex < generatedImages.length - 1 ? currentIndex + 1 : 0;
+      return generatedImages[nextIndex];
+    }
+    return null;
+  };
+
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white">
-      {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
-        <h1 className="text-xl font-semibold text-gray-900 dark:text-white">My media</h1>
-        <div className="flex items-center gap-3">
-          <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            <Filter size={20} className="text-gray-600 dark:text-gray-400" />
-          </button>
-          <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
-            <Menu size={20} className="text-gray-400" />
-          </button>
-          <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            <Bell size={20} className="text-gray-600 dark:text-gray-400" />
-          </button>
-          <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            <User size={20} className="text-gray-600 dark:text-gray-400" />
-          </button>
+    <>
+      <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
+          <h1 className="text-xl font-semibold text-gray-900 dark:text-white">My media</h1>
+          <div className="flex items-center gap-3">
+            <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <Filter size={20} className="text-gray-600 dark:text-gray-400" />
+            </button>
+            <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
+              <Menu size={20} className="text-gray-400" />
+            </button>
+            <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <Bell size={20} className="text-gray-600 dark:text-gray-400" />
+            </button>
+            <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <User size={20} className="text-gray-600 dark:text-gray-400" />
+            </button>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6">
+          {/* Date Header */}
+          <div className="mb-6">
+            <h2 className="text-gray-600 dark:text-gray-400 text-sm font-medium">Thu Jul 10</h2>
+          </div>
+
+          {/* Images Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-4">
+            {generatedImages.map((item) => (
+              <div 
+                key={item.id} 
+                className="group p-1 sm:p-2"
+                onClick={() => handleImageClick(item)}
+                onMouseEnter={() => setHoveredImage(item.id)}
+                onMouseLeave={() => {
+                  setHoveredImage(null);
+                  setShowMoreMenu(null);
+                }}
+              >
+                {/* Image Container */}
+                <div className="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-900 mb-2 sm:mb-4 cursor-pointer">
+                  <div className="aspect-[4/3]">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className={`absolute top-2 right-2 sm:top-4 sm:right-4 flex gap-1 sm:gap-2 transition-opacity duration-200 ${
+                    hoveredImage === item.id ? 'opacity-100' : 'opacity-0'
+                  }`}>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteImage(item.id);
+                      }}
+                      className="p-1.5 sm:p-2 bg-black/60 hover:bg-red-600/80 rounded-lg backdrop-blur-sm transition-colors"
+                      title="Delete image"
+                    >
+                      <Trash2 size={14} className="text-white sm:w-4 sm:h-4" />
+                    </button>
+                    <div className="relative">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowMoreMenu(showMoreMenu === item.id ? null : item.id);
+                        }}
+                        className="p-1.5 sm:p-2 bg-black/60 hover:bg-black/80 rounded-lg backdrop-blur-sm transition-colors"
+                        title="More options"
+                      >
+                        <MoreHorizontal size={14} className="text-white sm:w-4 sm:h-4" />
+                      </button>
+                      
+                      {/* More Options Menu */}
+                      {showMoreMenu === item.id && (
+                        <div className="absolute top-full right-0 mt-1 sm:mt-2 w-36 sm:w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-10">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleFavorite(item.id);
+                            }}
+                            className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                          >
+                            <Heart size={12} className="sm:w-3.5 sm:h-3.5" />
+                            Add to favorites
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDownload(item.id);
+                            }}
+                            className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                          >
+                            <Download size={12} className="sm:w-3.5 sm:h-3.5" />
+                            Download
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Image Info */}
+                <div className="space-y-2 sm:space-y-3 px-1">
+                  <h3 className="text-gray-900 dark:text-white font-medium text-xs sm:text-sm leading-tight">{item.title}</h3>
+                  <div className="flex items-start gap-2 sm:gap-3 text-xs text-gray-600 dark:text-gray-400">
+                    <span className="shrink-0">Prompt</span>
+                    <span className="line-clamp-2 leading-relaxed text-xs">{item.prompt}</span>
+                  </div>
+                  <div className="text-xs text-gray-500 dark:text-gray-500 pt-0.5 sm:pt-1">{item.timestamp}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-6">
-        {/* Date Header */}
-        <div className="mb-6">
-          <h2 className="text-gray-600 dark:text-gray-400 text-sm font-medium">Thu Jul 10</h2>
-        </div>
-
-        {/* Images Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-4">
-          {generatedImages.map((item) => (
-            <div 
-              key={item.id} 
-              className="group p-1 sm:p-2"
-              onMouseEnter={() => setHoveredImage(item.id)}
-              onMouseLeave={() => {
-                setHoveredImage(null);
-                setShowMoreMenu(null);
-              }}
-            >
-              {/* Image Container */}
-              <div className="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-900 mb-2 sm:mb-4">
-                <div className="aspect-[4/3]">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-
-                {/* Action Buttons */}
-                <div className={`absolute top-2 right-2 sm:top-4 sm:right-4 flex gap-1 sm:gap-2 transition-opacity duration-200 ${
-                  hoveredImage === item.id ? 'opacity-100' : 'opacity-0'
-                }`}>
-                  <button 
-                    onClick={() => handleDeleteImage(item.id)}
-                    className="p-1.5 sm:p-2 bg-black/60 hover:bg-red-600/80 rounded-lg backdrop-blur-sm transition-colors"
-                    title="Delete image"
-                  >
-                    <Trash2 size={14} className="text-white sm:w-4 sm:h-4" />
-                  </button>
-                  <div className="relative">
-                    <button 
-                      onClick={() => setShowMoreMenu(showMoreMenu === item.id ? null : item.id)}
-                      className="p-1.5 sm:p-2 bg-black/60 hover:bg-black/80 rounded-lg backdrop-blur-sm transition-colors"
-                      title="More options"
-                    >
-                      <MoreHorizontal size={14} className="text-white sm:w-4 sm:h-4" />
-                    </button>
-                    
-                    {/* More Options Menu */}
-                    {showMoreMenu === item.id && (
-                      <div className="absolute top-full right-0 mt-1 sm:mt-2 w-36 sm:w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-2 z-10">
-                        <button
-                          onClick={() => handleFavorite(item.id)}
-                          className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                        >
-                          <Heart size={12} className="sm:w-3.5 sm:h-3.5" />
-                          Add to favorites
-                        </button>
-                        <button
-                          onClick={() => handleDownload(item.id)}
-                          className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 text-xs sm:text-sm text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                        >
-                          <Download size={12} className="sm:w-3.5 sm:h-3.5" />
-                          Download
-                        </button>
-                      </div>
-                    )}
+      {/* Modal */}
+      {selectedImage && (
+        <div className="fixed inset-0 bg-black z-50 flex flex-col">
+          {/* Top Navbar */}
+          <div className="bg-black/30 backdrop-blur-sm px-4 py-3">
+            <div className="flex items-center justify-between">
+              {/* Left side - Logo */}
+              <div className="flex items-center">
+                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                  <div className="w-5 h-5 bg-black rounded-sm flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
                   </div>
                 </div>
               </div>
 
-              {/* Image Info */}
-              <div className="space-y-2 sm:space-y-3 px-1">
-                <h3 className="text-gray-900 dark:text-white font-medium text-xs sm:text-sm leading-tight">{item.title}</h3>
-                <div className="flex items-start gap-2 sm:gap-3 text-xs text-gray-600 dark:text-gray-400">
-                  <span className="shrink-0">Prompt</span>
-                  <span className="line-clamp-2 leading-relaxed text-xs">{item.prompt}</span>
+              {/* Center - User info and title */}
+              <div className="flex flex-col items-center">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-white font-medium">My media</span>
+                  <span className="text-gray-300">•</span>
+                  <span className="text-white font-medium">{selectedImage.title}</span>
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-500 pt-0.5 sm:pt-1">{item.timestamp}</div>
+                <div className="text-gray-300 text-sm">
+                  Jul 19, 12:29AM
+                </div>
+              </div>
+
+              {/* Right side - Actions */}
+              <div className="flex items-center gap-3">
+                <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <Heart size={16} className="text-white" />
+                </button>
+                
+                <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <Download size={16} className="text-white" />
+                </button>
+                
+                <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <Share2 size={16} className="text-white" />
+                </button>
+                
+                <img
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
+                  alt="User"
+                  className="w-8 h-8 rounded-full"
+                />
+                
+                <button
+                  onClick={closeModal}
+                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <X size={20} className="text-white" />
+                </button>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Centered Image with Black Sidebars and Navigation */}
+          <div className="flex-1 flex items-center justify-center bg-black relative">
+            {/* Previous Image (Left) */}
+            {getPreviousImage() && (
+              <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
+                <button
+                  onClick={handlePreviousImage}
+                  className="group relative"
+                >
+                  <img
+                    src={getPreviousImage()?.image}
+                    alt="Previous"
+                    className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-cover rounded-lg blur-sm opacity-60 group-hover:opacity-80 group-hover:blur-none transition-all duration-300"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-8 h-8 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            )}
+
+            {/* Main Image */}
+            <img
+              src={selectedImage.image}
+              alt={selectedImage.title}
+              className="max-w-full max-h-full object-contain"
+            />
+
+            {/* Next Image (Right) */}
+            {getNextImage() && (
+              <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
+                <button
+                  onClick={handleNextImage}
+                  className="group relative"
+                >
+                  <img
+                    src={getNextImage()?.image}
+                    alt="Next"
+                    className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-cover rounded-lg blur-sm opacity-60 group-hover:opacity-80 group-hover:blur-none transition-all duration-300"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-8 h-8 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Prompt Section Below Image */}
+          <div className="bg-black p-4 sm:p-6">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-start gap-3 mb-2">
+                <span className="text-gray-400 text-sm font-medium">Prompt</span>
+              </div>
+              <p className="text-white leading-relaxed text-sm sm:text-base mb-6">
+                {selectedImage.prompt}
+              </p>
+              
+              {/* Action Buttons */}
+              <div className="flex items-center justify-center gap-8">
+                <button
+                  onClick={handleCopyPrompt}
+                  className="flex flex-col items-center gap-2 p-3 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <Edit size={20} className="text-white" />
+                  <span className="text-white text-sm">Edit prompt</span>
+                </button>
+                
+                <button className="flex flex-col items-center gap-2 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                  <RotateCcw size={20} className="text-white" />
+                  <span className="text-white text-sm">Remix</span>
+                </button>
+                
+                <button className="flex flex-col items-center gap-2 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                  <Video size={20} className="text-white" />
+                  <span className="text-white text-sm">Create video</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
