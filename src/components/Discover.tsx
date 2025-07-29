@@ -432,18 +432,21 @@ export default function Discover() {
             </div>
           </div>
 
-          {/* Full Size Image */}
-          <div className="flex-1 flex items-center justify-center">
+          {/* Centered Image with Black Sidebars */}
+          <div className="flex-1 flex items-center justify-center bg-black">
             <img
               src={selectedImage.image}
               alt={selectedImage.title}
-              className="w-full h-full object-cover"
+              className="max-w-full max-h-full object-contain"
             />
           </div>
 
-          {/* Bottom Prompt Section */}
-          <div className="bg-black/80 backdrop-blur-sm p-4 sm:p-6">
+          {/* Prompt Section Below Image */}
+          <div className="bg-black p-4 sm:p-6">
             <div className="max-w-4xl mx-auto">
+              <div className="flex items-start gap-3 mb-2">
+                <span className="text-gray-400 text-sm font-medium">Prompt</span>
+              </div>
               <p className="text-white leading-relaxed text-sm sm:text-base">
                 {selectedImage.prompt}
               </p>
