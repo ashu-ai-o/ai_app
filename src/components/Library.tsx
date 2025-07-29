@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trash2, MoreHorizontal, Filter, Bell, User, Heart, Download, Menu, X, Copy, Share2, Edit, RotateCcw, Video } from 'lucide-react';
+import { Trash2, MoreHorizontal, Filter, Bell, User, Heart, Download, Menu, X, Copy, Share2, Edit, RotateCcw, Video, Star, ThumbsDown } from 'lucide-react';
 
 interface GeneratedImage {
   id: string;
@@ -497,12 +497,36 @@ export default function Library() {
               <div className="flex items-start gap-3 mb-2">
                 <span className="text-gray-400 text-sm font-medium">Prompt</span>
               </div>
-              <p className="text-white leading-relaxed text-sm sm:text-base mb-6">
-                {selectedImage.prompt}
+              <p 
+                className="text-white leading-relaxed text-sm sm:text-base mb-6 cursor-pointer transition-all duration-300 hover:opacity-80"
+                title={selectedImage.prompt}
+              >
+                {selectedImage.prompt.length > 150 
+                  ? `${selectedImage.prompt.substring(0, 150)}...` 
+                  : selectedImage.prompt
+                }
               </p>
               
               {/* Action Buttons */}
               <div className="flex items-center justify-center gap-8">
+                <button
+                  onClick={() => handleLike(selectedImage.id)}
+                  className="flex flex-col items-center gap-2 p-3 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <Heart size={20} className="text-white" />
+                  <span className="text-white text-sm">Like</span>
+                </button>
+                
+                <button className="flex flex-col items-center gap-2 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                  <Star size={20} className="text-white" />
+                  <span className="text-white text-sm">Favorite</span>
+                </button>
+                
+                <button className="flex flex-col items-center gap-2 p-3 hover:bg-white/10 rounded-lg transition-colors">
+                  <ThumbsDown size={20} className="text-white" />
+                  <span className="text-white text-sm">Dislike</span>
+                </button>
+                
                 <button
                   onClick={handleCopyPrompt}
                   className="flex flex-col items-center gap-2 p-3 hover:bg-white/10 rounded-lg transition-colors"
