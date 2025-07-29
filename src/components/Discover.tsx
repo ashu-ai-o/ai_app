@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trash2, MoreHorizontal, Filter, Bell, User, Heart, Download, Share2, Menu } from 'lucide-react';
+import { Trash2, MoreHorizontal, Filter, Bell, User, Heart, Download, Share2, Menu, X, Copy, ExternalLink, MessageCircle } from 'lucide-react';
 
 interface GeneratedImage {
   id: string;
@@ -192,6 +192,7 @@ const generatedImages: GeneratedImage[] = [
 export default function Discover() {
   const [hoveredImage, setHoveredImage] = React.useState<string | null>(null);
   const [showMoreMenu, setShowMoreMenu] = React.useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = React.useState<GeneratedImage | null>(null);
 
   const handleDeleteImage = (id: string) => {
     console.log('Delete image:', id);
@@ -215,8 +216,23 @@ export default function Discover() {
     console.log('Share image:', id);
   };
 
+  const handleImageClick = (image: GeneratedImage) => {
+    setSelectedImage(image);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
+  const handleCopyPrompt = () => {
+    if (selectedImage) {
+      navigator.clipboard.writeText(selectedImage.prompt);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white">
+    <>
+      <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white">
       {/* Header */}
       <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
         <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Discover</h1>
@@ -249,6 +265,7 @@ export default function Discover() {
             <div 
               key={item.id} 
               className="group"
+              onClick={() => handleImageClick(item)}
               onMouseEnter={() => setHoveredImage(item.id)}
               onMouseLeave={() => {
                 setHoveredImage(null);
@@ -261,7 +278,7 @@ export default function Discover() {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
                   />
                 </div>
 
@@ -345,5 +362,114 @@ export default function Discover() {
         </div>
       </div>
     </div>
+
+      {/* Modal */}
+      {selectedImage && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="relative max-w-4xl w-full max-h-[90vh] bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
+            {/* Close Button */}
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 z-10 p-2 bg-black/20 hover:bg-black/40 rounded-full backdrop-blur-sm transition-colors"
+            >
+              <X size={20} className="text-white" />
+            </button>
+
+            <div className="flex flex-col lg:flex-row h-full">
+              {/* Image Section */}
+              <div className="flex-1 relative bg-gray-100 dark:bg-gray-800 flex items-center justify-center min-h-[300px] lg:min-h-[500px]">
+                <img
+                  src={selectedImage.image}
+                  alt={selectedImage.title}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+
+              {/* Info Section */}
+              <div className="w-full lg:w-80 p-6 flex flex-col">
+                {/* Header */}
+                <div className="flex items-center gap-3 mb-4">
+                  <img
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
+                    alt="User"
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <div>
+                    <h3 className="font-medium text-gray-900 dark:text-white">melvindave</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{selectedImage.timestamp}</p>
+                  </div>
+                </div>
+
+                {/* Title */}
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                  {selectedImage.title}
+                </h2>
+
+                {/* Prompt */}
+                <div className="mb-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">Prompt</h4>
+                    <button
+                      onClick={handleCopyPrompt}
+                      className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                      title="Copy prompt"
+                    >
+                      <Copy size={14} className="text-gray-500 dark:text-gray-400" />
+                    </button>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                    {selectedImage.prompt}
+                  </p>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-2 mb-6">
+                  <button
+                    onClick={() => handleLike(selectedImage.id)}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                  >
+                    <Heart size={16} />
+                    <span className="text-sm">Like</span>
+                  </button>
+                  <button
+                    onClick={() => handleShare(selectedImage.id)}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                  >
+                    <Share2 size={16} />
+                    <span className="text-sm">Share</span>
+                  </button>
+                </div>
+
+                {/* Download Button */}
+                <button
+                  onClick={() => handleDownload(selectedImage.id)}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+                >
+                  <Download size={16} />
+                  Download
+                </button>
+
+                {/* Remix Section */}
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-6 h-6 bg-blue-600 rounded-sm flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">R</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">Remix</span>
+                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                    Same image, but the bullets are lower, more staggered, and more on the left side of the screen
+                  </p>
+                  <button className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors text-sm">
+                    <MessageCircle size={14} />
+                    Try this remix
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
