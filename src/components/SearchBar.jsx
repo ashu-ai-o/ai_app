@@ -1,14 +1,10 @@
 import React from 'react';
 import { Search, Send } from 'lucide-react';
 
-interface SearchBarProps {
-  onSearch?: (query: string) => void;
-}
-
-export default function SearchBar({ onSearch }: SearchBarProps) {
+export default function SearchBar({ onSearch }) {
   const [query, setQuery] = React.useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (query.trim() && onSearch) {
       onSearch(query.trim());

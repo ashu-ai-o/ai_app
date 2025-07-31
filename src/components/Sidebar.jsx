@@ -1,24 +1,6 @@
 import React from 'react';
 import { Home, Compass, Library, Command, Clock, Settings, Menu, X, Image, Newspaper, CreditCard } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
-import { ChatThread } from '../App';
-
-interface SidebarProps {
-  currentPage: 'home' | 'library' | 'discover' | 'thumbnail' | 'news'| 'settings'| 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing' | 'forgot-password';
-  setCurrentPage: (page: 'home' | 'library' | 'discover' | 'thumbnail' | 'news' | 'settings' | 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing' | 'forgot-password') => void;
-  chatThreads: ChatThread[];
-  activeChatId: string | null;
-  setActiveChatId: (id: string | null) => void;
-  onNewThread: (query: string) => void;
-  onShowAccountSettings: () => void;
-  collapsed: boolean;
-  onToggle: () => void;
-  onShowPrivacySecurity: () => void;
-  onShowSettings: () => void;
-  onShowAppearance: () => void;
-  onShowLanguageRegion: () => void;
-  onShowPricing: () => void;
-}
 
 const recentSearches = [
   'what are the price plans for bolt.new',
@@ -39,7 +21,7 @@ const Sidebar = ({
   setActiveChatId, 
   onNewThread,
   
-}: SidebarProps) => {
+}) => {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
@@ -67,7 +49,7 @@ const Sidebar = ({
     setIsMobileMenuOpen((prev) => !prev);
   };
 
-  const handleNavClick = (page: 'home' | 'library' | 'discover' | 'thumbnail' | 'news' | 'settings' | 'pricing') => {
+  const handleNavClick = (page) => {
     setCurrentPage(page);
     if (isMobile) {
       setIsMobileMenuOpen(false);
@@ -83,7 +65,7 @@ const Sidebar = ({
     }
   };
 
-  const handleThreadClick = (threadId: string) => {
+  const handleThreadClick = (threadId) => {
     setActiveChatId(threadId);
     setCurrentPage('home');
     if (isMobile) {
@@ -91,7 +73,7 @@ const Sidebar = ({
     }
   };
 
-  const handleRecentSearchClick = (search: string) => {
+  const handleRecentSearchClick = (search) => {
     onNewThread(search);
     if (isMobile) {
       setIsMobileMenuOpen(false);

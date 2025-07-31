@@ -1,11 +1,6 @@
 import { MessageCircle, Share2, Copy, MoreHorizontal, User, Bot } from 'lucide-react';
-import { ChatThread as ChatThreadType } from '../App';
 
-interface ChatThreadProps {
-  thread: ChatThreadType;
-}
-
-export default function ChatThread({ thread }: ChatThreadProps) {
+export default function ChatThread({ thread }) {
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 pt-16 lg:pt-6">
       <div className="space-y-6">

@@ -18,29 +18,12 @@ import ForgotPassword from './components/ForgotPassword';
 import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 
-export interface Message {
-  id: string;
-  content: string;
-  timestamp: Date;
-  isUser: boolean;
-}
-
-export interface ChatThread {
-  id: string;
-  title: string;
-  messages: Message[];
-}
-
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<
-    'home' | 'library' | 'discover' | 'thumbnail' | 'news' | 'settings' | 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing' | 'forgot-password' | 'terms' | 'privacy-policy'
-  >('login');
+  const [currentPage, setCurrentPage] = useState('login');
 
-  const [currentView, setCurrentView] = useState<
-    'home' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing'
-  >('home');
+  const [currentView, setCurrentView] = useState('home');
 
-  const [chatThreads, setChatThreads] = useState<ChatThread[]>([
+  const [chatThreads, setChatThreads] = useState([
     {id: '1', title: 'Welcome Thread', messages: []},
     {id: '2', title: 'Sample Thread', messages: []},
     {id: '3', title: 'Another Thread', messages: []},
@@ -52,17 +35,17 @@ export default function App() {
     {id: '9', title: 'Chat Thread 3', messages: []},
     {id: '10', title: 'Chat Thread 4', messages: []}
   ]);
-  const [activeChatId, setActiveChatId] = useState<string | null>(null);
+  const [activeChatId, setActiveChatId] = useState(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   // Handle navigation events from other components
   useEffect(() => {
-    const handleNavigate = (event: CustomEvent) => {
+    const handleNavigate = (event) => {
       setCurrentPage(event.detail);
     };
 
-    window.addEventListener('navigate', handleNavigate as EventListener);
-    return () => window.removeEventListener('navigate', handleNavigate as EventListener);
+    window.addEventListener('navigate', handleNavigate);
+    return () => window.removeEventListener('navigate', handleNavigate);
   }, []);
 
   useEffect(() => {
@@ -95,7 +78,7 @@ export default function App() {
   const handleSwitchToLogin = () => setCurrentPage('login');
   const handleSwitchToForgotPassword = () => setCurrentPage('forgot-password');
 
-  const generateResponse = (query: string): string => {
+  const generateResponse = (query) => {
     const lower = query.toLowerCase();
     if (lower.includes('price plans') || lower.includes('bolt.new')) {
       return `Based on the search results... (custom response for bolt.new)`;
@@ -106,8 +89,8 @@ export default function App() {
     return `This is a sample response for your query: "${query}"`;
   };
 
-  const createNewThread = (query: string) => {
-    const newThread: ChatThread = {
+  const createNewThread = (query) => {
+    const newThread = {
       id: Date.now().toString(),
       title: query,
       messages: [],
