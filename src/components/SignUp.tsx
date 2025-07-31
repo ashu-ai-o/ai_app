@@ -1,5 +1,5 @@
 import React from 'react';
-import { Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { Eye, EyeOff, ArrowRight, X, FileText, Shield } from 'lucide-react';
 
 interface SignUpProps {
   onSwitchToLogin: () => void;
@@ -14,6 +14,8 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const [agreeToTerms, setAgreeToTerms] = React.useState(false);
+  const [showTermsModal, setShowTermsModal] = React.useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = React.useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,8 +26,19 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
     console.log('Sign up attempt:', { firstName, lastName, email, password, agreeToTerms });
   };
 
+  const handleShowTerms = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowTermsModal(true);
+  };
+
+  const handleShowPrivacy = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowPrivacyModal(true);
+  };
+
   return (
-    <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center p-4">
+    <>
+      <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -151,7 +164,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
             <label htmlFor="agreeToTerms" className="ml-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
               I agree to the{' '}
               <button
-                onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'terms' }))}
+                onClick={handleShowTerms}
                 type="button"
                 className="text-blue-400 hover:text-blue-300 transition-colors underline"
               >
@@ -159,7 +172,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
               </button>{' '}
               and{' '}
               <button
-                onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'privacy-policy' }))}
+                onClick={handleShowPrivacy}
                 type="button"
                 className="text-blue-400 hover:text-blue-300 transition-colors underline"
               >
@@ -227,5 +240,208 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
         </div>
       </div>
     </div>
+
+      {/* Terms of Service Modal */}
+      {showTermsModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-black rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            {/* Header */}
+            <div className="border-b border-gray-200 dark:border-gray-700 p-6 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <FileText className="w-6 h-6 text-blue-600" />
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Terms of Service</h2>
+              </div>
+              <button
+                onClick={() => setShowTermsModal(false)}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              >
+                <X size={20} className="text-gray-500 dark:text-gray-400" />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+              <div className="prose dark:prose-invert max-w-none">
+                <div className="mb-6">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    These Terms of Service govern your use of our AI-powered platform. By creating an account or using our services, you agree to be bound by these terms.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">1. Acceptance of Terms</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      By accessing or using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">2. User Accounts</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                      To access certain features, you may need to create an account. You are responsible for:
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                      <li>Providing accurate and complete information</li>
+                      <li>Maintaining the security of your password</li>
+                      <li>All activities under your account</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">3. Acceptable Use</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                      You agree not to use our services to:
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                      <li>Violate any applicable laws or regulations</li>
+                      <li>Generate harmful or inappropriate content</li>
+                      <li>Attempt to hack or reverse engineer our systems</li>
+                      <li>Spam or abuse other users</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">4. Intellectual Property</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      You retain ownership of content you create, but grant us a license to use, modify, and display such content as necessary to provide our services.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">5. Disclaimers</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      Our services are provided "as is" without warranties. AI-generated content may contain errors or inaccuracies.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">6. Contact</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      For questions about these terms, contact us at legal@perplexity.ai
+                    </p>
+                  </section>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="border-t border-gray-200 dark:border-gray-700 p-6">
+              <button
+                onClick={() => setShowTermsModal(false)}
+                className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              >
+                I Understand
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Privacy Policy Modal */}
+      {showPrivacyModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-black rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            {/* Header */}
+            <div className="border-b border-gray-200 dark:border-gray-700 p-6 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Shield className="w-6 h-6 text-green-600" />
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Privacy Policy</h2>
+              </div>
+              <button
+                onClick={() => setShowPrivacyModal(false)}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              >
+                <X size={20} className="text-gray-500 dark:text-gray-400" />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+              <div className="prose dark:prose-invert max-w-none">
+                <div className="mb-6">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    We are committed to protecting your privacy. This policy explains how we collect, use, and protect your information.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Information We Collect</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                      We collect information you provide directly:
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                      <li>Account information (name, email, password)</li>
+                      <li>Search queries and generated content</li>
+                      <li>Usage data and device information</li>
+                      <li>Communication with support</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">How We Use Your Information</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                      We use your information to:
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                      <li>Provide and improve our services</li>
+                      <li>Process your queries and generate responses</li>
+                      <li>Personalize your experience</li>
+                      <li>Communicate with you about our services</li>
+                      <li>Detect and prevent fraud</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Information Sharing</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      We do not sell your personal information. We may share information with service providers, for legal compliance, or with your consent.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Data Security</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      We implement appropriate security measures including encryption, access controls, and regular security audits.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Your Rights</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                      You have the right to:
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                      <li>Access and correct your information</li>
+                      <li>Delete your personal information</li>
+                      <li>Opt-out of marketing communications</li>
+                      <li>Data portability</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Contact</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      For privacy questions, contact us at privacy@perplexity.ai
+                    </p>
+                  </section>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="border-t border-gray-200 dark:border-gray-700 p-6">
+              <button
+                onClick={() => setShowPrivacyModal(false)}
+                className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium"
+              >
+                I Understand
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
