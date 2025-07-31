@@ -151,6 +151,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
             <label htmlFor="agreeToTerms" className="ml-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
               I agree to the{' '}
               <button
+                onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'terms' }))}
                 type="button"
                 className="text-blue-400 hover:text-blue-300 transition-colors underline"
               >
@@ -158,6 +159,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
               </button>{' '}
               and{' '}
               <button
+                onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'privacy-policy' }))}
                 type="button"
                 className="text-blue-400 hover:text-blue-300 transition-colors underline"
               >

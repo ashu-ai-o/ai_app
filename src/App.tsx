@@ -15,6 +15,8 @@ import LanguageRegionPage from './components/LanguageRegionPage';
 import PricingPage from './components/PricingPage';
 import AccountSettings from './components/AccountSetting';
 import ForgotPassword from './components/ForgotPassword';
+import TermsOfService from './pages/TermsOfService';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 export interface Message {
   id: string;
@@ -31,7 +33,7 @@ export interface ChatThread {
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<
-    'home' | 'library' | 'discover' | 'thumbnail' | 'news' | 'settings' | 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing' | 'forgot-password'
+    'home' | 'library' | 'discover' | 'thumbnail' | 'news' | 'settings' | 'login' | 'signup' | 'account' | 'privacy' | 'settings' | 'appearance' | 'language' | 'pricing' | 'forgot-password' | 'terms' | 'privacy-policy'
   >('login');
 
   const [currentView, setCurrentView] = useState<
@@ -52,6 +54,16 @@ export default function App() {
   ]);
   const [activeChatId, setActiveChatId] = useState<string | null>(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  // Handle navigation events from other components
+  useEffect(() => {
+    const handleNavigate = (event: CustomEvent) => {
+      setCurrentPage(event.detail);
+    };
+
+    window.addEventListener('navigate', handleNavigate as EventListener);
+    return () => window.removeEventListener('navigate', handleNavigate as EventListener);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -174,6 +186,9 @@ export default function App() {
         { currentPage === 'appearance' && currentPage !== 'forgot-password' && <AppearancePage onBack={handleBackToHome} />}
         { currentPage === 'language' && currentPage !== 'forgot-password' && <LanguageRegionPage onBack={handleBackToHome} />}
         { currentPage === 'pricing' && currentPage !== 'forgot-password' && <PricingPage onBack={handleBackToHome} />}
+
+        {currentPage === 'terms' && <TermsOfService onBack={handleBackToHome} />}
+        {currentPage === 'privacy-policy' && <PrivacyPolicy onBack={handleBackToHome} />}
 
             {/* Settings Pages and Subviews */}
             {/* {currentView === 'account' && <AccountSettings onBack={handleBackToHome} />}

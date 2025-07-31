@@ -154,11 +154,17 @@ export default function Login({ onSwitchToSignUp, onSwitchToForgotPassword }: Lo
         <div className="mt-8 text-center">
           <p className="text-gray-500 dark:text-gray-500 text-xs">
             By signing in, you agree to our{' '}
-            <button className="text-gray-400 hover:text-white transition-colors underline">
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'terms' }))}
+              className="text-gray-400 hover:text-white transition-colors underline"
+            >
               Terms of Service
             </button>{' '}
             and{' '}
-            <button className="text-gray-400 hover:text-white transition-colors underline">
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'privacy-policy' }))}
+              className="text-gray-400 hover:text-white transition-colors underline"
+            >
               Privacy Policy
             </button>
           </p>
