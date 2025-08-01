@@ -18,12 +18,17 @@ import ForgotPassword from './components/ForgotPassword';
 import TermsOfService from './pages/TermsOfService';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 
+interface ChatThread {
+  id: string;
+  title: string;
+  messages: any[];
+}
+
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('login');
+  const [currentPage, setCurrentPage] = useState<string>('login');
+  const [currentView, setCurrentView] = useState<string>('home');
 
-  const [currentView, setCurrentView] = useState('home');
-
-  const [chatThreads, setChatThreads] = useState([
+  const [chatThreads, setChatThreads] = useState<ChatThread[]>([
     {id: '1', title: 'Welcome Thread', messages: []},
     {id: '2', title: 'Sample Thread', messages: []},
     {id: '3', title: 'Another Thread', messages: []},
@@ -35,12 +40,12 @@ export default function App() {
     {id: '9', title: 'Chat Thread 3', messages: []},
     {id: '10', title: 'Chat Thread 4', messages: []}
   ]);
-  const [activeChatId, setActiveChatId] = useState(null);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [activeChatId, setActiveChatId] = useState<string | null>(null);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false);
 
   // Handle navigation events from other components
   useEffect(() => {
-    const handleNavigate = (event) => {
+    const handleNavigate = (event: any) => {
       setCurrentPage(event.detail);
     };
 
@@ -59,7 +64,6 @@ export default function App() {
 
   const handleShowAccountSettings = () => {
     setCurrentPage("account");
-    // setCurrentView('account');
   }
   const handleShowPrivacySecurity = () => setCurrentPage('privacy');
   const handleShowAppearance = () => setCurrentPage('appearance');
@@ -78,7 +82,7 @@ export default function App() {
   const handleSwitchToLogin = () => setCurrentPage('login');
   const handleSwitchToForgotPassword = () => setCurrentPage('forgot-password');
 
-  const generateResponse = (query) => {
+  const generateResponse = (query: string) => {
     const lower = query.toLowerCase();
     if (lower.includes('price plans') || lower.includes('bolt.new')) {
       return `Based on the search results... (custom response for bolt.new)`;
@@ -89,8 +93,8 @@ export default function App() {
     return `This is a sample response for your query: "${query}"`;
   };
 
-  const createNewThread = (query) => {
-    const newThread = {
+  const createNewThread = (query: string) => {
+    const newThread: ChatThread = {
       id: Date.now().toString(),
       title: query,
       messages: [],
@@ -132,16 +136,6 @@ export default function App() {
 
         {currentPage !== 'login' && currentPage !== 'signup' && (
           <>
-            {/* Mobile menu button */}
-            {/* <button
-              onClick={toggleSidebar}
-              className="fixed top-4 left-4 z-50 p-2 bg-gray-100 dark:bg-[#2C2C2C] rounded-lg shadow-lg hover:bg-gray-200 dark:hover:bg-[#3C3C3C]"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button> */}
-
             {currentView === 'home' && currentPage === 'home' && currentPage !== 'forgot-password' && (
               <div className="max-w-5xl mx-auto px-4 py-6">
                 <div className="text-center mb-8">
@@ -172,13 +166,6 @@ export default function App() {
 
         {currentPage === 'terms' && <TermsOfService onBack={handleBackToHome} />}
         {currentPage === 'privacy-policy' && <PrivacyPolicy onBack={handleBackToHome} />}
-
-            {/* Settings Pages and Subviews */}
-            {/* {currentView === 'account' && <AccountSettings onBack={handleBackToHome} />}
-            {currentView === 'privacy' && <PrivacySecurity onBack={handleBackToHome} />}
-            {currentView === 'appearance' && <AppearancePage onBack={handleBackToHome} />}
-            {currentView === 'language' && <LanguageRegionPage onBack={handleBackToHome} />}
-            {currentView === 'pricing' && <PricingPage onBack={handleBackToHome} />} */}
           </>
         )}
       </main>

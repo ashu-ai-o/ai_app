@@ -2,6 +2,29 @@ import React from 'react';
 import { Home, Compass, Library, Command, Clock, Settings, Menu, X, Image, Newspaper, CreditCard } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
+interface ChatThread {
+  id: string;
+  title: string;
+  messages: any[];
+}
+
+interface SidebarProps {
+  currentPage: string;
+  setCurrentPage: (page: string) => void;
+  chatThreads: ChatThread[];
+  activeChatId: string | null;
+  setActiveChatId: (id: string | null) => void;
+  onNewThread: (query: string) => void;
+  collapsed: boolean;
+  onToggle: () => void;
+  onShowAccountSettings: () => void;
+  onShowPrivacySecurity: () => void;
+  onShowSettings: () => void;
+  onShowAppearance: () => void;
+  onShowLanguageRegion: () => void;
+  onShowPricing: () => void;
+}
+
 const recentSearches = [
   'what are the price plans for bolt.new',
   'check the price',
@@ -13,17 +36,18 @@ const recentSearches = [
   'find a one service which can do all t...'
 ];
 
-const Sidebar = ({ 
+const Sidebar: React.FC<SidebarProps> = ({ 
   currentPage, 
   setCurrentPage, 
   chatThreads, 
   activeChatId, 
   setActiveChatId, 
   onNewThread,
-  
+  collapsed,
+  onToggle
 }) => {
-  const [isCollapsed, setIsCollapsed] = React.useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [isCollapsed, setIsCollapsed] = React.useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState<boolean>(false);
 
   // Check if we're on mobile/tablet
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
@@ -49,13 +73,12 @@ const Sidebar = ({
     setIsMobileMenuOpen((prev) => !prev);
   };
 
-  const handleNavClick = (page) => {
+  const handleNavClick = (page: string) => {
     setCurrentPage(page);
     if (isMobile) {
       setIsMobileMenuOpen(false);
     }
   };
-
 
   const handleNewThread = () => {
     setActiveChatId(null);
@@ -65,7 +88,7 @@ const Sidebar = ({
     }
   };
 
-  const handleThreadClick = (threadId) => {
+  const handleThreadClick = (threadId: string) => {
     setActiveChatId(threadId);
     setCurrentPage('home');
     if (isMobile) {
@@ -73,7 +96,7 @@ const Sidebar = ({
     }
   };
 
-  const handleRecentSearchClick = (search) => {
+  const handleRecentSearchClick = (search: string) => {
     onNewThread(search);
     if (isMobile) {
       setIsMobileMenuOpen(false);
@@ -254,18 +277,6 @@ const Sidebar = ({
                   <span className="truncate">{thread.title}</span>
                 </button>
               ))}
-              
-              {/* Recent Searches */}
-              {/* {recentSearches.map((search, index) => (
-                <button
-                  key={`search-${index}`}
-                  onClick={() => handleRecentSearchClick(search)}
-                  className="w-full flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-2 py-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-[#2C2C2C] text-left text-sm transition-colors"
-                >
-                  <Clock size={14} />
-                  <span className="truncate">{search}</span>
-                </button>
-              ))} */}
             </div>
           )}
         </nav>
