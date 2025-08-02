@@ -38,23 +38,23 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
 
   return (
     <>
-      <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+      <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+      <div className="w-full max-w-md mx-auto my-4">
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-4 sm:mb-8">
           <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-900 dark:bg-white rounded-lg mb-4">
             <span className="text-white dark:text-black font-bold text-xl">X</span>
           </div>
-          <h1 className="text-gray-900 dark:text-white text-2xl font-semibold mb-2">Create your account</h1>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">Join us today! Please fill in your details.</p>
+          <h1 className="text-gray-900 dark:text-white text-xl sm:text-2xl font-semibold mb-2">Create your account</h1>
+          <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm">Join us today! Please fill in your details.</p>
         </div>
 
         {/* Sign Up Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {/* Name Fields */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-2 sm:gap-4">
             <div>
-              <label htmlFor="firstName" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              <label htmlFor="firstName" className="block text-xs sm:text-sm font-medium text-gray-900 dark:text-white mb-2">
                 First name
               </label>
               <input
@@ -62,13 +62,13 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-2 sm:px-4 py-2.5 sm:py-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
                 placeholder="First name"
                 required
               />
             </div>
             <div>
-              <label htmlFor="lastName" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              <label htmlFor="lastName" className="block text-xs sm:text-sm font-medium text-gray-900 dark:text-white mb-2">
                 Last name
               </label>
               <input
@@ -76,7 +76,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-2 sm:px-4 py-2.5 sm:py-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
                 placeholder="Last name"
                 required
               />
@@ -85,7 +85,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
 
           {/* Email Field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+            <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-900 dark:text-white mb-2">
               Email
             </label>
             <input
@@ -93,7 +93,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
               placeholder="Enter your email"
               required
             />
@@ -101,7 +101,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
 
           {/* Password Field */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+            <label htmlFor="password" className="block text-xs sm:text-sm font-medium text-gray-900 dark:text-white mb-2">
               Password
             </label>
             <div className="relative">
@@ -110,7 +110,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 pr-12 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-10 sm:pr-12 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
                 placeholder="Create a password"
                 required
                 minLength={8}
@@ -120,14 +120,14 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
               >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </div>
 
           {/* Confirm Password Field */}
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+            <label htmlFor="confirmPassword" className="block text-xs sm:text-sm font-medium text-gray-900 dark:text-white mb-2">
               Confirm password
             </label>
             <div className="relative">
@@ -136,7 +136,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                 type={showConfirmPassword ? 'text' : 'password'}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-3 pr-12 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 pr-10 sm:pr-12 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
                 placeholder="Confirm your password"
                 required
                 minLength={8}
@@ -146,7 +146,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
               >
-                {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </div>
@@ -161,12 +161,12 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
               className="w-4 h-4 mt-0.5 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded focus:ring-2 focus:ring-blue-500 text-blue-500"
               required
             />
-            <label htmlFor="agreeToTerms" className="ml-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+            <label htmlFor="agreeToTerms" className="ml-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
               I agree to the{' '}
               <button
                 onClick={handleShowTerms}
                 type="button"
-                className="text-blue-400 hover:text-blue-300 transition-colors underline"
+                className="text-blue-400 hover:text-blue-300 transition-colors underline text-xs sm:text-sm"
               >
                 Terms of Service
               </button>{' '}
@@ -174,7 +174,7 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
               <button
                 onClick={handleShowPrivacy}
                 type="button"
-                className="text-blue-400 hover:text-blue-300 transition-colors underline"
+                className="text-blue-400 hover:text-blue-300 transition-colors underline text-xs sm:text-sm"
               >
                 Privacy Policy
               </button>
@@ -184,10 +184,10 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
           {/* Sign Up Button */}
           <button
             type="submit"
-            className="w-full bg-gray-900 dark:bg-white text-white dark:text-black font-semibold py-3 px-4 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 group"
+            className="w-full bg-gray-900 dark:bg-white text-white dark:text-black font-semibold py-2.5 sm:py-3 px-4 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 group text-sm sm:text-base"
           >
             Create account
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </button>
 
           {/* Divider */}
@@ -196,17 +196,17 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
               <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white dark:bg-black text-gray-500 dark:text-gray-400">Or continue with</span>
+              <span className="px-2 bg-white dark:bg-black text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Or continue with</span>
             </div>
           </div>
 
           {/* Social Login Buttons */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
             <button
               type="button"
-              className="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+              className="flex items-center justify-center px-2 sm:px-4 py-2.5 sm:py-3 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors text-xs sm:text-sm"
             >
-              <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
@@ -216,9 +216,9 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
             </button>
             <button
               type="button"
-              className="flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+              className="flex items-center justify-center px-2 sm:px-4 py-2.5 sm:py-3 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors text-xs sm:text-sm"
             >
-              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
               </svg>
               GitHub
@@ -227,12 +227,12 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
         </form>
 
         {/* Sign In Link */}
-        <div className="mt-8 text-center">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
+        <div className="mt-6 sm:mt-8 text-center">
+          <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm">
             Already have an account?{' '}
             <button 
               onClick={onSwitchToLogin}
-              className="text-blue-400 hover:text-blue-300 transition-colors font-medium"
+              className="text-blue-400 hover:text-blue-300 transition-colors font-medium text-xs sm:text-sm"
             >
               Sign in
             </button>
@@ -243,45 +243,45 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
 
       {/* Terms of Service Modal */}
       {showTermsModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-black rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
+          <div className="bg-white dark:bg-black rounded-xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
             {/* Header */}
-            <div className="border-b border-gray-200 dark:border-gray-700 p-6 flex items-center justify-between">
+            <div className="border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <FileText className="w-6 h-6 text-blue-600" />
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Terms of Service</h2>
+                <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Terms of Service</h2>
               </div>
               <button
                 onClick={() => setShowTermsModal(false)}
                 className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
               >
-                <X size={20} className="text-gray-500 dark:text-gray-400" />
+                <X size={18} className="text-gray-500 dark:text-gray-400" />
               </button>
             </div>
 
             {/* Content */}
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+            <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(95vh-120px)] sm:max-h-[calc(90vh-120px)]">
               <div className="prose dark:prose-invert max-w-none">
-                <div className="mb-6">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <div className="mb-4 sm:mb-6">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                     These Terms of Service govern your use of our AI-powered platform. By creating an account or using our services, you agree to be bound by these terms.
                   </p>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">1. Acceptance of Terms</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">1. Acceptance of Terms</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                       By accessing or using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms and our Privacy Policy.
                     </p>
                   </section>
 
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">2. User Accounts</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">2. User Accounts</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-2 sm:mb-3 text-sm sm:text-base">
                       To access certain features, you may need to create an account. You are responsible for:
                     </p>
-                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-2 sm:ml-4 text-sm sm:text-base">
                       <li>Providing accurate and complete information</li>
                       <li>Maintaining the security of your password</li>
                       <li>All activities under your account</li>
@@ -289,11 +289,11 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                   </section>
 
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">3. Acceptable Use</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">3. Acceptable Use</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-2 sm:mb-3 text-sm sm:text-base">
                       You agree not to use our services to:
                     </p>
-                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-2 sm:ml-4 text-sm sm:text-base">
                       <li>Violate any applicable laws or regulations</li>
                       <li>Generate harmful or inappropriate content</li>
                       <li>Attempt to hack or reverse engineer our systems</li>
@@ -302,22 +302,22 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                   </section>
 
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">4. Intellectual Property</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">4. Intellectual Property</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                       You retain ownership of content you create, but grant us a license to use, modify, and display such content as necessary to provide our services.
                     </p>
                   </section>
 
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">5. Disclaimers</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">5. Disclaimers</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                       Our services are provided "as is" without warranties. AI-generated content may contain errors or inaccuracies.
                     </p>
                   </section>
 
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">6. Contact</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">6. Contact</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                       For questions about these terms, contact us at legal@perplexity.ai
                     </p>
                   </section>
@@ -326,10 +326,10 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
             </div>
 
             {/* Footer */}
-            <div className="border-t border-gray-200 dark:border-gray-700 p-6">
+            <div className="border-t border-gray-200 dark:border-gray-700 p-4 sm:p-6">
               <button
                 onClick={() => setShowTermsModal(false)}
-                className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                className="w-full bg-blue-600 text-white py-2.5 sm:py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm sm:text-base"
               >
                 I Understand
               </button>
@@ -340,38 +340,38 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
 
       {/* Privacy Policy Modal */}
       {showPrivacyModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-black rounded-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
+          <div className="bg-white dark:bg-black rounded-xl max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
             {/* Header */}
-            <div className="border-b border-gray-200 dark:border-gray-700 p-6 flex items-center justify-between">
+            <div className="border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Shield className="w-6 h-6 text-green-600" />
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Privacy Policy</h2>
+                <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Privacy Policy</h2>
               </div>
               <button
                 onClick={() => setShowPrivacyModal(false)}
                 className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
               >
-                <X size={20} className="text-gray-500 dark:text-gray-400" />
+                <X size={18} className="text-gray-500 dark:text-gray-400" />
               </button>
             </div>
 
             {/* Content */}
-            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+            <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(95vh-120px)] sm:max-h-[calc(90vh-120px)]">
               <div className="prose dark:prose-invert max-w-none">
-                <div className="mb-6">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <div className="mb-4 sm:mb-6">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                     We are committed to protecting your privacy. This policy explains how we collect, use, and protect your information.
                   </p>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Information We Collect</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">Information We Collect</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-2 sm:mb-3 text-sm sm:text-base">
                       We collect information you provide directly:
                     </p>
-                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-2 sm:ml-4 text-sm sm:text-base">
                       <li>Account information (name, email, password)</li>
                       <li>Search queries and generated content</li>
                       <li>Usage data and device information</li>
@@ -380,11 +380,11 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                   </section>
 
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">How We Use Your Information</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">How We Use Your Information</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-2 sm:mb-3 text-sm sm:text-base">
                       We use your information to:
                     </p>
-                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-2 sm:ml-4 text-sm sm:text-base">
                       <li>Provide and improve our services</li>
                       <li>Process your queries and generate responses</li>
                       <li>Personalize your experience</li>
@@ -394,25 +394,25 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                   </section>
 
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Information Sharing</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">Information Sharing</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                       We do not sell your personal information. We may share information with service providers, for legal compliance, or with your consent.
                     </p>
                   </section>
 
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Data Security</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">Data Security</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                       We implement appropriate security measures including encryption, access controls, and regular security audits.
                     </p>
                   </section>
 
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Your Rights</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">Your Rights</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-2 sm:mb-3 text-sm sm:text-base">
                       You have the right to:
                     </p>
-                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
+                    <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-2 sm:ml-4 text-sm sm:text-base">
                       <li>Access and correct your information</li>
                       <li>Delete your personal information</li>
                       <li>Opt-out of marketing communications</li>
@@ -421,8 +421,8 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
                   </section>
 
                   <section>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Contact</h3>
-                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">Contact</h3>
+                    <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                       For privacy questions, contact us at privacy@perplexity.ai
                     </p>
                   </section>
@@ -431,10 +431,10 @@ export default function SignUp({ onSwitchToLogin }: SignUpProps) {
             </div>
 
             {/* Footer */}
-            <div className="border-t border-gray-200 dark:border-gray-700 p-6">
+            <div className="border-t border-gray-200 dark:border-gray-700 p-4 sm:p-6">
               <button
                 onClick={() => setShowPrivacyModal(false)}
-                className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium"
+                className="w-full bg-green-600 text-white py-2.5 sm:py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium text-sm sm:text-base"
               >
                 I Understand
               </button>

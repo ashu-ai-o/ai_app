@@ -134,25 +134,25 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Sidebar */}
       <div className={`
-        ${isMobile ? 'fixed' : 'relative'}
+        ${isMobile ? 'fixed inset-y-0 left-0' : 'relative'}
         ${isMobile && !isMobileMenuOpen ? '-translate-x-full' : 'translate-x-0'}
-        ${isCollapsed && !isMobile ? 'w-16' : 'w-64'}
-        bg-gray-100 dark:bg-[#1C1C1C] h-screen p-4 flex flex-col transition-all duration-300 z-40
+        ${isCollapsed && !isMobile ? 'w-12 sm:w-16' : 'w-56 sm:w-64'}
+        bg-gray-100 dark:bg-[#1C1C1C] h-screen p-2 sm:p-4 flex flex-col transition-all duration-300 z-40 overflow-y-auto
         ${isMobile ? 'shadow-xl' : ''}
       `}>
         {/* Header */}
-        <div className={`flex items-center ${isCollapsed && !isMobile ? 'justify-center' : 'justify-between'} mb-6`}>
+        <div className={`flex items-center ${isCollapsed && !isMobile ? 'justify-center' : 'justify-between'} mb-4 sm:mb-6`}>
           {(!isCollapsed || isMobile) && (
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-black dark:bg-white rounded-sm flex items-center justify-center">
-                <span className="text-white dark:text-black font-bold text-sm">P</span>
+              <div className="w-5 h-5 sm:w-6 sm:h-6 bg-black dark:bg-white rounded-sm flex items-center justify-center">
+                <span className="text-white dark:text-black font-bold text-xs sm:text-sm">P</span>
               </div>
-              <span className="text-gray-900 dark:text-white font-semibold">perplexity</span>
+              <span className="text-gray-900 dark:text-white font-semibold text-sm sm:text-base">perplexity</span>
             </div>
           )}
           {isCollapsed && !isMobile && (
-            <div className="w-6 h-6 mt-12 bg-black dark:bg-white rounded-lg flex items-center justify-center">
-              <span className="text-white dark:text-black font-bold text-sm">P</span>
+            <div className="w-5 h-5 sm:w-6 sm:h-6 mt-8 sm:mt-12 bg-black dark:bg-white rounded-lg flex items-center justify-center">
+              <span className="text-white dark:text-black font-bold text-xs sm:text-sm">P</span>
             </div>
           )}
          
@@ -160,18 +160,18 @@ const Sidebar: React.FC<SidebarProps> = ({
 
         {/* New Thread Button */}
         <button className={`
-          flex items-center gap-2 bg-gray-200 dark:bg-[#2C2C2C] text-gray-900 dark:text-white px-3 py-2 rounded-lg mb-6 transition-colors hover:bg-gray-300 dark:hover:bg-[#3C3C3C]
-          ${isCollapsed && !isMobile ? 'justify-center px-[0.5px] py-1' : ''}
+          flex items-center gap-2 bg-gray-200 dark:bg-[#2C2C2C] text-gray-900 dark:text-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg mb-4 sm:mb-6 transition-colors hover:bg-gray-300 dark:hover:bg-[#3C3C3C] text-sm sm:text-base
+          ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''}
         `}
         onClick={handleNewThread}>
-          {(!isCollapsed || isMobile) && <span>New Thread</span>}
+          {(!isCollapsed || isMobile) && <span className="text-xs sm:text-sm">New Thread</span>}
           {(!isCollapsed || isMobile) && (
             <div className="flex items-center gap-1 ml-auto">
-              <kbd className="px-1.5 py-0.5 text-xs bg-gray-300 dark:bg-[#3C3C3C] rounded">⌘</kbd>
-              <kbd className="px-1.5 py-0.5 text-xs bg-gray-300 dark:bg-[#3C3C3C] rounded">N</kbd>
+              <kbd className="px-1 py-0.5 text-xs bg-gray-300 dark:bg-[#3C3C3C] rounded hidden sm:inline">⌘</kbd>
+              <kbd className="px-1 py-0.5 text-xs bg-gray-300 dark:bg-[#3C3C3C] rounded hidden sm:inline">N</kbd>
             </div>
           )}
-          {isCollapsed && !isMobile && <Command size={18} />}
+          {isCollapsed && !isMobile && <Command size={14} />}
         </button>
 
         {/* Navigation */}
@@ -180,12 +180,12 @@ const Sidebar: React.FC<SidebarProps> = ({
             onClick={() => handleNavClick('home')}
             className={`flex items-center gap-3 px-2 py-2 rounded-lg transition-colors w-full text-left ${
               currentPage === 'home' 
-                ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
+                ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]'
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
-            } ${isCollapsed && !isMobile ? 'justify-center px-[0.5px] py-1' : ''}`}
+            } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
             title={isCollapsed && !isMobile ? 'Home' : ''}
           >
-            <Home size={18} />
+            <Home size={14} className="sm:w-[18px] sm:h-[18px]" />
             {(!isCollapsed || isMobile) && <span>Home</span>}
           </button>
           
@@ -195,10 +195,10 @@ const Sidebar: React.FC<SidebarProps> = ({
               currentPage === 'discover' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
-            } ${isCollapsed && !isMobile ? 'justify-center px-[0.5px] py-1' : ''}`}
+            } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
             title={isCollapsed && !isMobile ? 'Discover' : ''}
           >
-            <Compass size={18} />
+            <Compass size={14} className="sm:w-[18px] sm:h-[18px]" />
             {(!isCollapsed || isMobile) && <span>Discover</span>}
           </button>
 
@@ -208,10 +208,10 @@ const Sidebar: React.FC<SidebarProps> = ({
               currentPage === 'library' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
-            } ${isCollapsed && !isMobile ? 'justify-center px-[0.5px] py-1' : ''}`}
+            } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
             title={isCollapsed && !isMobile ? 'Library' : ''}
           >
-            <Library size={18} />
+            <Library size={14} className="sm:w-[18px] sm:h-[18px]" />
             {(!isCollapsed || isMobile) && <span>Library</span>}
           </button>
 
@@ -221,10 +221,10 @@ const Sidebar: React.FC<SidebarProps> = ({
               currentPage === 'thumbnail' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
-            } ${isCollapsed && !isMobile ? 'justify-center px-[0.5px] py-1' : ''}`}
+            } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
             title={isCollapsed && !isMobile ? 'Thumbnail' : ''}
           >
-            <Image size={18} />
+            <Image size={14} className="sm:w-[18px] sm:h-[18px]" />
             {(!isCollapsed || isMobile) && <span>Thumbnail</span>}
           </button>
 
@@ -234,10 +234,10 @@ const Sidebar: React.FC<SidebarProps> = ({
               currentPage === 'news' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
-            } ${isCollapsed && !isMobile ? 'justify-center px-[0.5px] py-1' : ''}`}
+            } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
             title={isCollapsed && !isMobile ? 'News' : ''}
           >
-            <Newspaper size={18} />
+            <Newspaper size={14} className="sm:w-[18px] sm:h-[18px]" />
             {(!isCollapsed || isMobile) && <span>News</span>}
           </button>
 
@@ -247,33 +247,33 @@ const Sidebar: React.FC<SidebarProps> = ({
               currentPage === 'news' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
-            } ${isCollapsed && !isMobile ? 'justify-center px-[0.5px] py-1' : ''}`}
+            } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
             title={isCollapsed && !isMobile ? 'Pricing' : ''}
           >
-            <CreditCard size={18} />
+            <CreditCard size={14} className="sm:w-[18px] sm:h-[18px]" />
             {(!isCollapsed || isMobile) && <span>Pricing</span>}
           </button>
 
           {/* Spacer for collapsed mode */}
-          {isCollapsed && !isMobile && <div className="pt-2" />}
+          {isCollapsed && !isMobile && <div className="pt-1 sm:pt-2" />}
           
-          {(!isCollapsed || isMobile) && <div className="pt-4" />}
+          {(!isCollapsed || isMobile) && <div className="pt-2 sm:pt-4" />}
 
           {/* Recent Searches - Only show when not collapsed */}
           {(!isCollapsed || isMobile) && (
-            <div className="mt-2 space-y-1 max-h-64 overflow-y-auto">
+            <div className="mt-1 sm:mt-2 space-y-1 max-h-48 sm:max-h-64 overflow-y-auto">
               {/* Chat Threads */}
               {chatThreads.slice(0, 7).map((thread) => (
                 <button
                   key={thread.id}
                   onClick={() => handleThreadClick(thread.id)}
-                  className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-left text-sm transition-colors ${
+                  className={`w-full flex items-center gap-1 sm:gap-2 px-1 sm:px-2 py-1 sm:py-1.5 rounded-lg text-left text-xs sm:text-sm transition-colors ${
                     activeChatId === thread.id
                       ? 'bg-gray-200 dark:bg-[#2C2C2C] text-gray-900 dark:text-white'
                       : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
                   }`}
                 >
-                  <Clock size={14} />
+                  <Clock size={12} className="sm:w-3.5 sm:h-3.5" />
                   <span className="truncate">{thread.title}</span>
                 </button>
               ))}
@@ -284,18 +284,18 @@ const Sidebar: React.FC<SidebarProps> = ({
         {/* Bottom Section */}
         <div className="mt-auto space-y-4">
           {/* Profile Section */}
-          <div className={`flex items-center px-2 py-2 ${isCollapsed && !isMobile ? 'justify-center' : 'justify-between'}`}>
+          <div className={`flex items-center px-1 sm:px-2 py-1 sm:py-2 ${isCollapsed && !isMobile ? 'justify-center' : 'justify-between'}`}>
             <button onClick={() => setCurrentPage('account')} >
               <div className="flex items-center gap-2">
               <img
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
                 alt="Profile"
-                className={`rounded-full ${isCollapsed && !isMobile ? 'w-8 h-8' : 'w-8 h-8'}`}
+                className={`rounded-full ${isCollapsed && !isMobile ? 'w-6 h-6 sm:w-8 sm:h-8' : 'w-6 h-6 sm:w-8 sm:h-8'}`}
                 title={isCollapsed && !isMobile ? 'melvindave (Pro)' : ''}
               />
               {(!isCollapsed || isMobile) && (
                 <div className="flex flex-col">
-                  <span className="text-sm text-gray-900 dark:text-white">melvindave</span>
+                  <span className="text-xs sm:text-sm text-gray-900 dark:text-white">melvindave</span>
                   <span className="text-xs mr-auto text-gray-500 dark:text-gray-400">Pro</span>
                 </div>
               )}
@@ -308,7 +308,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                 className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                 title="Settings"
               >
-                <Settings size={16} />
+                <Settings size={14} className="sm:w-4 sm:h-4" />
               </button>
             )}
           </div>

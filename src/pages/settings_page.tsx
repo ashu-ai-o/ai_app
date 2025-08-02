@@ -76,62 +76,62 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onBack, onAccountSettings, 
   ];
 
   return (
-    <div className="min-h-full bg-white dark:bg-black">
+    <div className="min-h-screen bg-white dark:bg-black overflow-y-auto">
       {/* Header */}
       <div className="border-b border-gray-200 dark:border-[#3C3C3C] bg-white dark:bg-[#1C1C1C]">
-        <div className="max-w-5xl mx-auto px-6 py-4">
+        <div className="max-w-5xl mx-auto px-3 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center gap-4">
             <button
               onClick={onBack}
               className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-[#2C2C2C] transition-colors"
             >
-              <ArrowLeft size={20} className="text-gray-600 dark:text-gray-400" />
+              <ArrowLeft size={18} className="text-gray-600 dark:text-gray-400" />
             </button>
             <div>
-              <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">{t('settings.title')}</h1>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('settings.subtitle')}</p>
+              <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">{t('settings.title')}</h1>
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">{t('settings.subtitle')}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="max-w-5xl mx-auto px-6 py-8 relative">
+      <div className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-8 relative">
         {/* Mobile menu button */}
         <button
           onClick={onBack}
-          className="fixed top-4 left-4 z-50 p-2 bg-gray-100 dark:bg-[#2C2C2C] rounded-lg shadow-lg hover:bg-gray-200 dark:hover:bg-[#3C3C3C] transition-colors"
+          className="fixed top-3 left-3 z-50 p-1.5 sm:p-2 bg-gray-100 dark:bg-[#2C2C2C] rounded-lg shadow-lg hover:bg-gray-200 dark:hover:bg-[#3C3C3C] transition-colors"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
         
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
           {/* Main Settings */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-8">
             {settingsCategories.map((category, categoryIndex) => (
-              <div key={categoryIndex} className="bg-gray-50 dark:bg-[#1C1C1C] rounded-xl p-6 border border-gray-200 dark:border-[#3C3C3C]">
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{category.title}</h2>
+              <div key={categoryIndex} className="bg-gray-50 dark:bg-[#1C1C1C] rounded-xl p-3 sm:p-6 border border-gray-200 dark:border-[#3C3C3C]">
+                <h2 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">{category.title}</h2>
                 <div className="space-y-2">
                   {category.items.map((item, itemIndex) => (
                     <button
                       key={itemIndex}
                       onClick={item.onClick}
-                      className="w-full flex items-center gap-4 p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors group"
+                      className="w-full flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors group"
                     >
                       <div className="flex-shrink-0">
-                        <item.icon size={24} className="text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" />
+                        <item.icon size={20} className="sm:w-6 sm:h-6 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" />
                       </div>
                       <div className="flex-1 text-left">
-                        <h3 className="font-medium text-gray-900 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white">
+                        <h3 className="font-medium text-gray-900 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white text-sm sm:text-base">
                           {item.label}
                         </h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 group-hover:text-gray-600 dark:group-hover:text-gray-300">
+                        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 group-hover:text-gray-600 dark:group-hover:text-gray-300">
                           {item.description}
                         </p>
                       </div>
-                      <ChevronRight size={20} className="text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
+                      <ChevronRight size={16} className="sm:w-5 sm:h-5 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300" />
                     </button>
                   ))}
                 </div>
@@ -140,18 +140,18 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onBack, onAccountSettings, 
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* User Info */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-blue-800">
               <div className="flex items-center gap-3 mb-4">
                 <img
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop&crop=faces"
                   alt="Profile"
-                  className="w-12 h-12 rounded-full border-2 border-white dark:border-[#2C2C2C] shadow-sm"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white dark:border-[#2C2C2C] shadow-sm"
                 />
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">melvindave</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">Pro Member</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base">melvindave</h3>
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">Pro Member</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -161,51 +161,51 @@ const SettingsPage: React.FC<SettingsPageProps> = ({ onBack, onAccountSettings, 
             </div>
 
             {/* Quick Stats */}
-            <div className="bg-gray-50 dark:bg-[#1C1C1C] rounded-xl p-6 border border-gray-200 dark:border-[#3C3C3C]">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Account Overview</h3>
+            <div className="bg-gray-50 dark:bg-[#1C1C1C] rounded-xl p-4 sm:p-6 border border-gray-200 dark:border-[#3C3C3C]">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 text-sm sm:text-base">Account Overview</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Member since</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">March 2024</span>
+                  <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Member since</span>
+                  <span className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">March 2024</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Total searches</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">2,847</span>
+                  <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Total searches</span>
+                  <span className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">2,847</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Threads created</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">156</span>
+                  <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Threads created</span>
+                  <span className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">156</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Last active</span>
-                  <span className="text-sm font-medium text-gray-900 dark:text-white">Today</span>
+                  <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Last active</span>
+                  <span className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">Today</span>
                 </div>
               </div>
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-gray-50 dark:bg-[#1C1C1C] rounded-xl p-6 border border-gray-200 dark:border-[#3C3C3C]">
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
+            <div className="bg-gray-50 dark:bg-[#1C1C1C] rounded-xl p-4 sm:p-6 border border-gray-200 dark:border-[#3C3C3C]">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4 text-sm sm:text-base">Quick Actions</h3>
               <div className="space-y-2">
-                <button className="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#2C2C2C] rounded-lg transition-colors">
+                <button className="w-full text-left px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#2C2C2C] rounded-lg transition-colors">
                   Export Search History
                 </button>
-                <button className="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#2C2C2C] rounded-lg transition-colors">
+                <button className="w-full text-left px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#2C2C2C] rounded-lg transition-colors">
                   Clear Cache
                 </button>
-                <button className="w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#2C2C2C] rounded-lg transition-colors">
+                <button className="w-full text-left px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#2C2C2C] rounded-lg transition-colors">
                   Contact Support
                 </button>
               </div>
             </div>
 
             {/* Sign Out */}
-            <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-6 border border-red-200 dark:border-red-800">
+            <div className="bg-red-50 dark:bg-red-900/20 rounded-xl p-4 sm:p-6 border border-red-200 dark:border-red-800">
               <button className="w-full flex items-center gap-3 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors">
-                <LogOut size={20} />
+                <LogOut size={16} className="sm:w-5 sm:h-5" />
                 <div className="text-left">
-                  <div className="font-medium">Sign Out</div>
-                  <div className="text-sm text-red-500 dark:text-red-500">Sign out of your account</div>
+                  <div className="font-medium text-sm sm:text-base">Sign Out</div>
+                  <div className="text-xs sm:text-sm text-red-500 dark:text-red-500">Sign out of your account</div>
                 </div>
               </button>
             </div>
