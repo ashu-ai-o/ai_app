@@ -8,6 +8,37 @@ interface AccountSettingsProps {
 
 const AccountSettings: React.FC<AccountSettingsProps> = ({ onBack }) => {
   const { t } = useTranslation();
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [formData, setFormData] = React.useState({
+    fullName: 'Melvin Dave',
+    username: 'melvindave',
+    email: 'melvin@example.com',
+    phone: '+1 (555) 123-4567'
+  });
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSave = () => {
+    // Here you would typically save the data to your backend
+    console.log('Saving profile data:', formData);
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    // Reset form data to original values
+    setFormData({
+      fullName: 'Melvin Dave',
+      username: 'melvindave',
+      email: 'melvin@example.com',
+      phone: '+1 (555) 123-4567'
+    });
+    setIsEditing(false);
+  };
 
   return (
     <div className="min-h-full bg-white dark:bg-black">
@@ -48,10 +79,30 @@ const AccountSettings: React.FC<AccountSettingsProps> = ({ onBack }) => {
             <div className="bg-gray-50 dark:bg-[#1C1C1C] rounded-xl p-6 border border-gray-200 dark:border-[#3C3C3C]">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t('account.profile')}</h2>
-                <button className="flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                  <Edit3 size={14} />
-                  {t('account.edit')}
-                </button>
+                {!isEditing ? (
+                  <button 
+                    onClick={() => setIsEditing(true)}
+                    className="flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  >
+                    <Edit3 size={14} />
+                    {t('account.edit')}
+                  </button>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={handleCancel}
+                      className="px-3 py-1.5 text-sm border border-gray-300 dark:border-[#3C3C3C] text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button 
+                      onClick={handleSave}
+                      className="flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      Save
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div className="flex items-start gap-6 mb-6">
@@ -78,31 +129,79 @@ const AccountSettings: React.FC<AccountSettingsProps> = ({ onBack }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('account.fullName')}</label>
-                  <div className="flex items-center gap-2 p-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg">
-                    <User size={16} className="text-gray-400" />
-                    <span className="text-gray-900 dark:text-white">Melvin Dave</span>
-                  </div>
+                  {isEditing ? (
+                    <div className="relative">
+                      <User size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                      <input
+                        type="text"
+                        value={formData.fullName}
+                        onChange={(e) => handleInputChange('fullName', e.target.value)}
+                        className="w-full pl-10 pr-3 py-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 p-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg">
+                      <User size={16} className="text-gray-400" />
+                      <span className="text-gray-900 dark:text-white">{formData.fullName}</span>
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('account.username')}</label>
-                  <div className="flex items-center gap-2 p-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg">
-                    <span className="text-gray-400">@</span>
-                    <span className="text-gray-900 dark:text-white">melvindave</span>
-                  </div>
+                  {isEditing ? (
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">@</span>
+                      <input
+                        type="text"
+                        value={formData.username}
+                        onChange={(e) => handleInputChange('username', e.target.value)}
+                        className="w-full pl-8 pr-3 py-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 p-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg">
+                      <span className="text-gray-400">@</span>
+                      <span className="text-gray-900 dark:text-white">{formData.username}</span>
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('account.email')}</label>
-                  <div className="flex items-center gap-2 p-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg">
-                    <Mail size={16} className="text-gray-400" />
-                    <span className="text-gray-900 dark:text-white">melvin@example.com</span>
-                  </div>
+                  {isEditing ? (
+                    <div className="relative">
+                      <Mail size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        className="w-full pl-10 pr-3 py-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 p-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg">
+                      <Mail size={16} className="text-gray-400" />
+                      <span className="text-gray-900 dark:text-white">{formData.email}</span>
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('account.phone')}</label>
-                  <div className="flex items-center gap-2 p-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg">
-                    <Phone size={16} className="text-gray-400" />
-                    <span className="text-gray-900 dark:text-white">+1 (555) 123-4567</span>
-                  </div>
+                  {isEditing ? (
+                    <div className="relative">
+                      <Phone size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                      <input
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        className="w-full pl-10 pr-3 py-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 p-3 bg-white dark:bg-[#2C2C2C] border border-gray-200 dark:border-[#3C3C3C] rounded-lg">
+                      <Phone size={16} className="text-gray-400" />
+                      <span className="text-gray-900 dark:text-white">{formData.phone}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
