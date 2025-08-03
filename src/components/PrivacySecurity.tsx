@@ -107,7 +107,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
               
               <div className="space-y-3 sm:space-y-4">
                 {/* Two-Factor Authentication */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3 sm:gap-0">
+                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
                   <div className="flex items-start sm:items-center gap-3">
                     <Key size={18} className="sm:w-5 sm:h-5 text-green-600 flex-shrink-0 mt-0.5 sm:mt-0" />
                     <div className="flex-1 min-w-0">
@@ -115,7 +115,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">{t('privacy.twoFactorDesc')}</p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-3 sm:flex-shrink-0">
+                  <div className="flex items-center gap-2 flex-shrink-0">
                     <span className={`text-xs sm:text-sm font-medium ${twoFactorEnabled ? 'text-green-600' : 'text-gray-500'}`}>
                       {twoFactorEnabled ? t('privacy.enabled') : t('privacy.disabled')}
                     </span>
@@ -134,7 +134,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                 </div>
 
                 {/* Change Password */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3 sm:gap-0">
+                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
                   <div className="flex items-start sm:items-center gap-3">
                     <Lock size={18} className="sm:w-5 sm:h-5 text-orange-600 flex-shrink-0 mt-0.5 sm:mt-0" />
                     <div className="flex-1 min-w-0">
@@ -144,14 +144,14 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                   </div>
                   <button 
                     onClick={handleChangePassword}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-300 dark:border-[#3C3C3C] text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors text-xs sm:text-sm font-medium w-full sm:w-auto"
+                    className="px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-300 dark:border-[#3C3C3C] text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors text-xs sm:text-sm font-medium flex-shrink-0"
                   >
                     Change
                   </button>
                 </div>
 
                 {/* Active Sessions */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3 sm:gap-0">
+                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
                   <div className="flex items-start sm:items-center gap-3">
                     <UserCheck size={18} className="sm:w-5 sm:h-5 text-purple-600 flex-shrink-0 mt-0.5 sm:mt-0" />
                     <div className="flex-1 min-w-0">
@@ -161,7 +161,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                   </div>
                   <button 
                     onClick={handleManageSessions}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-300 dark:border-[#3C3C3C] text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors text-xs sm:text-sm font-medium w-full sm:w-auto"
+                    className="px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-300 dark:border-[#3C3C3C] text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors text-xs sm:text-sm font-medium flex-shrink-0"
                   >
                     Manage
                   </button>
@@ -178,7 +178,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
               
               <div className="space-y-3 sm:space-y-4">
                 {/* Data Collection */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3 sm:gap-0">
+                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
                   <div className="flex items-start sm:items-center gap-3">
                     <Database size={18} className="sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5 sm:mt-0" />
                     <div className="flex-1 min-w-0">
@@ -186,7 +186,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Allow collection of usage data to improve service</p>
                     </div>
                   </div>
-                  <button 
+                  <button
                     onClick={handleDataCollectionToggle}
                     disabled={isLoading}
                     className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
@@ -200,7 +200,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                 </div>
 
                 {/* Search History */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3 sm:gap-0">
+                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
                   <div className="flex items-start sm:items-center gap-3">
                     <Globe size={18} className="sm:w-5 sm:h-5 text-green-600 flex-shrink-0 mt-0.5 sm:mt-0" />
                     <div className="flex-1 min-w-0">
@@ -208,7 +208,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Save your search history for better recommendations</p>
                     </div>
                   </div>
-                  <button 
+                  <button
                     onClick={handleSearchHistoryToggle}
                     disabled={isLoading}
                     className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
@@ -222,7 +222,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                 </div>
 
                 {/* Analytics & Performance */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3 sm:gap-0">
+                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
                   <div className="flex items-start sm:items-center gap-3">
                     <AlertTriangle size={18} className="sm:w-5 sm:h-5 text-yellow-600 flex-shrink-0 mt-0.5 sm:mt-0" />
                     <div className="flex-1 min-w-0">
@@ -230,7 +230,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Help improve performance through anonymous analytics</p>
                     </div>
                   </div>
-                  <button 
+                  <button
                     onClick={handleAnalyticsToggle}
                     disabled={isLoading}
                     className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
@@ -254,7 +254,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
               
               <div className="space-y-3 sm:space-y-4">
                 {/* Export Data */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3 sm:gap-0">
+                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
                   <div className="flex items-start sm:items-center gap-3">
                     <Download size={18} className="sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5 sm:mt-0" />
                     <div className="flex-1 min-w-0">
@@ -264,14 +264,14 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                   </div>
                   <button 
                     onClick={handleExportData}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm font-medium w-full sm:w-auto"
+                    className="px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm font-medium flex-shrink-0"
                   >
                     Export
                   </button>
                 </div>
 
                 {/* Clear Search History */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3 sm:gap-0">
+                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
                   <div className="flex items-start sm:items-center gap-3">
                     <Trash2 size={18} className="sm:w-5 sm:h-5 text-red-600 flex-shrink-0 mt-0.5 sm:mt-0" />
                     <div className="flex-1 min-w-0">
@@ -281,7 +281,7 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                   </div>
                   <button 
                     onClick={handleClearHistory}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm font-medium w-full sm:w-auto"
+                    className="px-3 sm:px-4 py-1.5 sm:py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm font-medium flex-shrink-0"
                   >
                     Clear
                   </button>
