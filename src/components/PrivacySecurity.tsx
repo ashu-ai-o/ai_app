@@ -107,22 +107,22 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
               
               <div className="space-y-3 sm:space-y-4">
                 {/* Two-Factor Authentication */}
-                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
-                  <div className="flex items-start sm:items-center gap-3">
+                <div className="flex items-start p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C]">
+                  <div className="flex items-start gap-3 flex-1 min-w-0 pr-3">
                     <Key size={18} className="sm:w-5 sm:h-5 text-green-600 flex-shrink-0 mt-0.5 sm:mt-0" />
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 pr-2">
                       <h3 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">{t('privacy.twoFactor')}</h3>
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">{t('privacy.twoFactorDesc')}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className={`text-xs sm:text-sm font-medium ${twoFactorEnabled ? 'text-green-600' : 'text-gray-500'}`}>
+                  <div className="flex flex-col items-end gap-1 flex-shrink-0 min-w-0">
+                    <span className={`text-xs font-medium whitespace-nowrap ${twoFactorEnabled ? 'text-green-600' : 'text-gray-500'}`}>
                       {twoFactorEnabled ? t('privacy.enabled') : t('privacy.disabled')}
                     </span>
                     <button 
                       onClick={handleTwoFactorToggle}
                       disabled={isLoading}
-                      className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-colors text-xs sm:text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed ${
+                      className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-md transition-colors text-xs font-medium disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap ${
                         twoFactorEnabled 
                           ? 'bg-red-600 text-white hover:bg-red-700' 
                           : 'bg-blue-600 text-white hover:bg-blue-700'
@@ -134,37 +134,41 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                 </div>
 
                 {/* Change Password */}
-                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
-                  <div className="flex items-start sm:items-center gap-3">
+                <div className="flex items-start p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C]">
+                  <div className="flex items-start gap-3 flex-1 min-w-0 pr-3">
                     <Lock size={18} className="sm:w-5 sm:h-5 text-orange-600 flex-shrink-0 mt-0.5 sm:mt-0" />
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 pr-2">
                       <h3 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">Change Password</h3>
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Update your account password regularly</p>
                     </div>
                   </div>
+                  <div className="flex items-start pt-1 flex-shrink-0">
                   <button 
                     onClick={handleChangePassword}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-300 dark:border-[#3C3C3C] text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors text-xs sm:text-sm font-medium flex-shrink-0"
+                    className="px-2 sm:px-3 py-1 sm:py-1.5 border border-gray-300 dark:border-[#3C3C3C] text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors text-xs font-medium whitespace-nowrap"
                   >
                     Change
                   </button>
+                  </div>
                 </div>
 
                 {/* Active Sessions */}
-                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
-                  <div className="flex items-start sm:items-center gap-3">
+                <div className="flex items-start p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C]">
+                  <div className="flex items-start gap-3 flex-1 min-w-0 pr-3">
                     <UserCheck size={18} className="sm:w-5 sm:h-5 text-purple-600 flex-shrink-0 mt-0.5 sm:mt-0" />
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 pr-2">
                       <h3 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">Active Sessions</h3>
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Manage devices logged into your account</p>
                     </div>
                   </div>
+                  <div className="flex items-start pt-1 flex-shrink-0">
                   <button 
                     onClick={handleManageSessions}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-300 dark:border-[#3C3C3C] text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors text-xs sm:text-sm font-medium flex-shrink-0"
+                    className="px-2 sm:px-3 py-1 sm:py-1.5 border border-gray-300 dark:border-[#3C3C3C] text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-50 dark:hover:bg-[#3C3C3C] transition-colors text-xs font-medium whitespace-nowrap"
                   >
                     Manage
                   </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -178,69 +182,75 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
               
               <div className="space-y-3 sm:space-y-4">
                 {/* Data Collection */}
-                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
-                  <div className="flex items-start sm:items-center gap-3">
+                <div className="flex items-start p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C]">
+                  <div className="flex items-start gap-3 flex-1 min-w-0 pr-4">
                     <Database size={18} className="sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5 sm:mt-0" />
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 pr-2">
                       <h3 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">Data Collection</h3>
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Allow collection of usage data to improve service</p>
                     </div>
                   </div>
+                  <div className="flex items-start pt-2 flex-shrink-0">
                   <button
                     onClick={handleDataCollectionToggle}
                     disabled={isLoading}
-                    className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                    className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                       dataCollection ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
                     }`}
                   >
-                    <span className={`inline-block h-3 w-3 sm:h-4 sm:w-4 transform rounded-full bg-white transition-transform ${
-                      dataCollection ? 'translate-x-5 sm:translate-x-6' : 'translate-x-1'
+                    <span className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${
+                      dataCollection ? 'translate-x-5' : 'translate-x-1'
                     }`} />
                   </button>
+                  </div>
                 </div>
 
                 {/* Search History */}
-                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
-                  <div className="flex items-start sm:items-center gap-3">
+                <div className="flex items-start p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C]">
+                  <div className="flex items-start gap-3 flex-1 min-w-0 pr-4">
                     <Globe size={18} className="sm:w-5 sm:h-5 text-green-600 flex-shrink-0 mt-0.5 sm:mt-0" />
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 pr-2">
                       <h3 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">Search History</h3>
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Save your search history for better recommendations</p>
                     </div>
                   </div>
+                  <div className="flex items-start pt-2 flex-shrink-0">
                   <button
                     onClick={handleSearchHistoryToggle}
                     disabled={isLoading}
-                    className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                    className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                       searchHistory ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
                     }`}
                   >
-                    <span className={`inline-block h-3 w-3 sm:h-4 sm:w-4 transform rounded-full bg-white transition-transform ${
-                      searchHistory ? 'translate-x-5 sm:translate-x-6' : 'translate-x-1'
+                    <span className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${
+                      searchHistory ? 'translate-x-5' : 'translate-x-1'
                     }`} />
                   </button>
+                  </div>
                 </div>
 
                 {/* Analytics & Performance */}
-                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
-                  <div className="flex items-start sm:items-center gap-3">
+                <div className="flex items-start p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C]">
+                  <div className="flex items-start gap-3 flex-1 min-w-0 pr-4">
                     <AlertTriangle size={18} className="sm:w-5 sm:h-5 text-yellow-600 flex-shrink-0 mt-0.5 sm:mt-0" />
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 pr-2">
                       <h3 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">Analytics & Performance</h3>
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Help improve performance through anonymous analytics</p>
                     </div>
                   </div>
+                  <div className="flex items-start pt-2 flex-shrink-0">
                   <button
                     onClick={handleAnalyticsToggle}
                     disabled={isLoading}
-                    className={`relative inline-flex h-5 w-9 sm:h-6 sm:w-11 items-center rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                    className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                       analytics ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
                     }`}
                   >
-                    <span className={`inline-block h-3 w-3 sm:h-4 sm:w-4 transform rounded-full bg-white transition-transform ${
-                      analytics ? 'translate-x-5 sm:translate-x-6' : 'translate-x-1'
+                    <span className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${
+                      analytics ? 'translate-x-5' : 'translate-x-1'
                     }`} />
                   </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -254,37 +264,41 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
               
               <div className="space-y-3 sm:space-y-4">
                 {/* Export Data */}
-                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
-                  <div className="flex items-start sm:items-center gap-3">
+                <div className="flex items-start p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C]">
+                  <div className="flex items-start gap-3 flex-1 min-w-0 pr-3">
                     <Download size={18} className="sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5 sm:mt-0" />
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 pr-2">
                       <h3 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">Export Data</h3>
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Download all your data including searches and conversations</p>
                     </div>
                   </div>
+                  <div className="flex items-start pt-1 flex-shrink-0">
                   <button 
                     onClick={handleExportData}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs sm:text-sm font-medium flex-shrink-0"
+                    className="px-2 sm:px-3 py-1 sm:py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-xs font-medium whitespace-nowrap"
                   >
                     Export
                   </button>
+                  </div>
                 </div>
 
                 {/* Clear Search History */}
-                <div className="flex items-center justify-between p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C] gap-3">
-                  <div className="flex items-start sm:items-center gap-3">
+                <div className="flex items-start p-3 sm:p-4 bg-white dark:bg-[#2C2C2C] rounded-lg border border-gray-200 dark:border-[#3C3C3C]">
+                  <div className="flex items-start gap-3 flex-1 min-w-0 pr-3">
                     <Trash2 size={18} className="sm:w-5 sm:h-5 text-red-600 flex-shrink-0 mt-0.5 sm:mt-0" />
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 pr-2">
                       <h3 className="font-medium text-gray-900 dark:text-white text-sm sm:text-base">Clear Search History</h3>
                       <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Permanently delete all your search history</p>
                     </div>
                   </div>
+                  <div className="flex items-start pt-1 flex-shrink-0">
                   <button 
                     onClick={handleClearHistory}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm font-medium flex-shrink-0"
+                    className="px-2 sm:px-3 py-1 sm:py-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-xs font-medium whitespace-nowrap"
                   >
                     Clear
                   </button>
+                  </div>
                 </div>
               </div>
             </div>
