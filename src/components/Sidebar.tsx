@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Home, Compass, Library, Command, Clock, Settings, Menu, X, Image, Newspaper, CreditCard } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
@@ -9,20 +10,13 @@ interface ChatThread {
 }
 
 interface SidebarProps {
-  currentPage: string;
-  setCurrentPage: (page: string) => void;
+  currentPath: string;
   chatThreads: ChatThread[];
   activeChatId: string | null;
   setActiveChatId: (id: string | null) => void;
   onNewThread: (query: string) => void;
   collapsed: boolean;
   onToggle: () => void;
-  onShowAccountSettings: () => void;
-  onShowPrivacySecurity: () => void;
-  onShowSettings: () => void;
-  onShowAppearance: () => void;
-  onShowLanguageRegion: () => void;
-  onShowPricing: () => void;
 }
 
 const recentSearches = [
@@ -37,8 +31,7 @@ const recentSearches = [
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ 
-  currentPage, 
-  setCurrentPage, 
+  currentPath,
   chatThreads, 
   activeChatId, 
   setActiveChatId, 
@@ -46,6 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   collapsed,
   onToggle
 }) => {
+  const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = React.useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState<boolean>(false);
 
@@ -74,7 +68,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const handleNavClick = (page: string) => {
-    setCurrentPage(page);
+    navigate(page);
     if (isMobile) {
       setIsMobileMenuOpen(false);
       setIsCollapsed(true) ;
@@ -83,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const handleNewThread = () => {
     setActiveChatId(null);
-    setCurrentPage('home');
+    navigate('/');
     if (isMobile) {
       setIsMobileMenuOpen(false);
     }
@@ -91,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const handleThreadClick = (threadId: string) => {
     setActiveChatId(threadId);
-    setCurrentPage('home');
+    navigate('/');
     if (isMobile) {
       setIsMobileMenuOpen(false);
     }
@@ -185,9 +179,9 @@ const Sidebar: React.FC<SidebarProps> = ({
         {/* Navigation */}
         <nav className="space-y-1">
           <button 
-            onClick={() => handleNavClick('home')}
+            onClick={() => handleNavClick('/')}
             className={`flex items-center gap-3 px-2 py-2 rounded-lg transition-colors w-full text-left ${
-              currentPage === 'home' 
+              currentPath === '/' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]'
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
             } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
@@ -198,9 +192,9 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
           
           <button 
-            onClick={() => handleNavClick('discover')}
+            onClick={() => handleNavClick('/discover')}
             className={`flex items-center gap-3 px-2 py-2 rounded-lg transition-colors w-full text-left ${
-              currentPage === 'discover' 
+              currentPath === '/discover' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
             } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
@@ -211,9 +205,9 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
 
           <button 
-            onClick={() => handleNavClick('library')}
+            onClick={() => handleNavClick('/library')}
             className={`flex items-center gap-3 px-2 py-2 rounded-lg transition-colors w-full text-left ${
-              currentPage === 'library' 
+              currentPath === '/library' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
             } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
@@ -224,9 +218,9 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
 
           <button 
-            onClick={() => handleNavClick('thumbnail')}
+            onClick={() => handleNavClick('/thumbnail')}
             className={`flex items-center gap-3 px-2 py-2 rounded-lg transition-colors w-full text-left ${
-              currentPage === 'thumbnail' 
+              currentPath === '/thumbnail' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
             } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
@@ -237,9 +231,9 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
 
           <button 
-            onClick={() => handleNavClick('news')}
+            onClick={() => handleNavClick('/news')}
             className={`flex items-center gap-3 px-2 py-2 rounded-lg transition-colors w-full text-left ${
-              currentPage === 'news' 
+              currentPath === '/news' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
             } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
@@ -250,9 +244,9 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
 
            <button 
-            onClick={() => handleNavClick('pricing')}
+            onClick={() => handleNavClick('/pricing')}
             className={`flex items-center gap-3 px-2 py-2 rounded-lg transition-colors w-full text-left ${
-              currentPage === 'news' 
+              currentPath === '/pricing' 
                 ? 'text-gray-900 dark:text-white bg-gray-200 dark:bg-[#2C2C2C]' 
                 : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-[#2C2C2C]'
             } ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''} text-sm sm:text-base`}
@@ -293,7 +287,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="mt-auto space-y-4">
           {/* Profile Section */}
           <div className={`flex items-center px-1 sm:px-2 py-1 sm:py-2 ${isCollapsed && !isMobile ? 'justify-center' : 'justify-between'}`}>
-            <button onClick={() => setCurrentPage('account')} >
+            <button onClick={() => navigate('/settings/account')} >
               <div className="flex items-center gap-2">
               <img
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
@@ -312,7 +306,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             {(!isCollapsed || isMobile) && <ThemeToggle />}
             {(!isCollapsed || isMobile) && (
               <button 
-              onClick={() => handleNavClick('settings')}
+              onClick={() => handleNavClick('/settings')}
                 className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                 title="Settings"
               >

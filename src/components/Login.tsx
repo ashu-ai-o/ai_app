@@ -155,14 +155,14 @@ export default function Login({ onSwitchToSignUp, onSwitchToForgotPassword }: Lo
           <p className="text-gray-500 dark:text-gray-500 text-xs leading-relaxed">
             By signing in, you agree to our{' '}
             <button 
-              onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'terms' }))}
+              onClick={() => window.open('/terms', '_blank')}
               className="text-gray-400 hover:text-white transition-colors underline text-xs"
             >
               Terms of Service
             </button>{' '}
             and{' '}
             <button 
-              onClick={() => window.dispatchEvent(new CustomEvent('navigate', { detail: 'privacy-policy' }))}
+              onClick={() => window.open('/privacy-policy', '_blank')}
               className="text-gray-400 hover:text-white transition-colors underline text-xs"
             >
               Privacy Policy

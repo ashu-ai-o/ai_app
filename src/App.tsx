@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import MainContent from './components/MainContent';
 import Library from './components/Library';
@@ -25,8 +26,9 @@ interface ChatThread {
 }
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<string>('login');
-  const [currentView, setCurrentView] = useState<string>('home');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   const [chatThreads, setChatThreads] = useState<ChatThread[]>([
     {id: '1', title: 'Welcome Thread', messages: []},
@@ -43,16 +45,6 @@ export default function App() {
   const [activeChatId, setActiveChatId] = useState<string | null>(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false);
 
-  // Handle navigation events from other components
-  useEffect(() => {
-    const handleNavigate = (event: any) => {
-      setCurrentPage(event.detail);
-    };
-
-    window.addEventListener('navigate', handleNavigate);
-    return () => window.removeEventListener('navigate', handleNavigate);
-  }, []);
-
   useEffect(() => {
     const handleResize = () => {
       setSidebarCollapsed(window.innerWidth < 1024);
@@ -62,25 +54,11 @@ export default function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleShowAccountSettings = () => {
-    setCurrentPage("account");
-  }
-  const handleShowPrivacySecurity = () => setCurrentPage('privacy');
-  const handleShowAppearance = () => setCurrentPage('appearance');
-  const handleShowLanguageRegion = () => setCurrentPage('language');
-  const handleShowPricing = () => setCurrentPage('pricing');
-  const handleShowSettings = () => setCurrentPage('settings');
-
-  const handleBackToHome = () => {
-    setCurrentPage('settings');
-    if (window.innerWidth < 1024) setSidebarCollapsed(true);
-  };
-
   const toggleSidebar = () => setSidebarCollapsed(prev => !prev);
 
-  const handleSwitchToSignUp = () => setCurrentPage('signup');
-  const handleSwitchToLogin = () => setCurrentPage('login');
-  const handleSwitchToForgotPassword = () => setCurrentPage('forgot-password');
+  const handleSwitchToSignUp = () => navigate('/signup');
+  const handleSwitchToLogin = () => navigate('/login');
+  const handleSwitchToForgotPassword = () => navigate('/forgot-password');
 
   const createNewThread = (query: string) => {
     const newThread: ChatThread = {
@@ -90,28 +68,54 @@ export default function App() {
     };
     setChatThreads(prev => [newThread, ...prev]);
     setActiveChatId(newThread.id);
-    setCurrentPage('home');
+    navigate('/');
   };
 
   const activeThread = chatThreads.find(t => t.id === activeChatId);
+
+  // Check if user is on auth pages
+  const isAuthPage = ['/login', '/signup', '/forgot-password'].includes(location.pathname);
+
+  // Mock authentication check
+  useEffect(() => {
+    // For demo purposes, we'll consider user authenticated if not on auth pages
+    if (!isAuthPage) {
+      setIsAuthenticated(true);
+    }
+  }, [isAuthPage]);
+
+  // If on auth pages, show only auth components
+  if (isAuthPage) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-black">
+        <Routes>
+          <Route path="/login" element={
+            <Login 
+              onSwitchToSignUp={handleSwitchToSignUp} 
+              onSwitchToForgotPassword={handleSwitchToForgotPassword} 
+            />
+          } />
+          <Route path="/signup" element={
+            <SignUp onSwitchToLogin={handleSwitchToLogin} />
+          } />
+          <Route path="/forgot-password" element={
+            <ForgotPassword onBackToLogin={handleSwitchToLogin} />
+          } />
+        </Routes>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-white dark:bg-black text-gray-900 dark:text-white transition-colors overflow-hidden">
       <Sidebar
         collapsed={sidebarCollapsed}
         onToggle={toggleSidebar}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        currentPath={location.pathname}
         chatThreads={chatThreads}
         activeChatId={activeChatId}
         setActiveChatId={setActiveChatId}
         onNewThread={createNewThread}
-        onShowAccountSettings={handleShowAccountSettings}
-        onShowPrivacySecurity={handleShowPrivacySecurity}
-        onShowSettings={handleShowSettings}
-        onShowAppearance={handleShowAppearance}
-        onShowLanguageRegion={handleShowLanguageRegion}
-        onShowPricing={handleShowPricing}
       />
 
       {!sidebarCollapsed && window.innerWidth < 1024 && (
@@ -119,44 +123,56 @@ export default function App() {
       )}
 
       <main className="flex-1 overflow-auto w-full">
-        {currentPage === 'login' && <Login onSwitchToSignUp={handleSwitchToSignUp} onSwitchToForgotPassword={handleSwitchToForgotPassword} />}
-        {currentPage === 'signup' && <SignUp onSwitchToLogin={handleSwitchToLogin} />}
-        {currentPage === 'forgot-password' && <ForgotPassword onBackToLogin={handleSwitchToLogin} />}
-
-        {currentPage !== 'login' && currentPage !== 'signup' && (
-          <>
-            {currentView === 'home' && currentPage === 'home' && (
-              <div className="max-w-5xl mx-auto px-4 py-6">
-                <div className="text-center mb-8">
-                  <h1 className="text-4xl font-bold text-gray-900 dark:text-white">triveni</h1>
-                </div>
-                {activeThread ? <ChatThread thread={activeThread} /> : <MainContent onSearch={createNewThread} />}
+        <Routes>
+          <Route path="/" element={
+            <div className="max-w-5xl mx-auto px-4 py-6">
+              <div className="text-center mb-8">
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-white">triveni</h1>
               </div>
-            )}
+              {activeThread ? <ChatThread thread={activeThread} /> : <MainContent onSearch={createNewThread} />}
+            </div>
+          } />
+          
+          <Route path="/library" element={<Library />} />
+          <Route path="/discover" element={<Discover />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/thumbnail" element={<Thumbnail />} />
+          <Route path="/pricing" element={<PricingPage onBack={() => navigate('/')} />} />
+          
+          <Route path="/settings" element={
+            <SettingsPage
+              onBack={() => navigate('/')}
+              onAccountSettings={() => navigate('/settings/account')}
+              onPrivacySecurity={() => navigate('/settings/privacy')}
+              onAppearance={() => navigate('/settings/appearance')}
+              onLanguageRegion={() => navigate('/settings/language')}
+            />
+          } />
+          
+          <Route path="/settings/account" element={
+            <AccountSettings onBack={() => navigate('/settings')} />
+          } />
+          
+          <Route path="/settings/privacy" element={
+            <PrivacySecurity onBack={() => navigate('/settings')} />
+          } />
+          
+          <Route path="/settings/appearance" element={
+            <AppearancePage onBack={() => navigate('/settings')} />
+          } />
+          
+          <Route path="/settings/language" element={
+            <LanguageRegionPage onBack={() => navigate('/settings')} />
+          } />
 
-            {currentPage === 'library' && <Library />}
-            {currentPage === 'discover' && <Discover />}
-            {currentPage === 'news' && <News />}
-            {currentPage === 'thumbnail' && <Thumbnail />}
-             {currentPage === 'settings' && (
-                <SettingsPage
-                onBack={handleBackToHome} 
-                  onAccountSettings={handleShowAccountSettings}
-                  onPrivacySecurity={handleShowPrivacySecurity}
-                  onAppearance={handleShowAppearance}
-                  onLanguageRegion={handleShowLanguageRegion} 
-                />
-        )}
-        { currentPage === 'account' &&  <AccountSettings onBack={handleBackToHome} />}
-        { currentPage === 'privacy' &&  <PrivacySecurity onBack={handleBackToHome} />}
-        { currentPage === 'appearance' && <AppearancePage onBack={handleBackToHome} />}
-        { currentPage === 'language' && <LanguageRegionPage onBack={handleBackToHome} />}
-        { currentPage === 'pricing' && <PricingPage onBack={handleBackToHome} />}
-
-        {currentPage === 'terms' && <TermsOfService onBack={handleBackToHome} />}
-        {currentPage === 'privacy-policy' && <PrivacyPolicy onBack={handleBackToHome} />}
-          </>
-        )}
+          <Route path="/terms" element={
+            <TermsOfService onBack={() => navigate('/settings')} />
+          } />
+          
+          <Route path="/privacy-policy" element={
+            <PrivacyPolicy onBack={() => navigate('/settings')} />
+          } />
+        </Routes>
       </main>
     </div>
   );
