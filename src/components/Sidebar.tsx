@@ -151,6 +151,13 @@ const Sidebar: React.FC<SidebarProps> = ({
               <span className="text-gray-900 dark:text-white font-semibold text-sm sm:text-base">perplexity</span>
             </div>
           )}
+          {(!isCollapsed || isMobile) && (
+            <button className="p-2 bg-gray-100 dark:bg-[#1C1C1C] rounded-lg shadow-lg hover:bg-gray-200 dark:hover:bg-[#2C2C2C] transition-colors">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
           {isCollapsed && !isMobile && (
             <div className="w-5 h-5 sm:w-6 sm:h-6 mt-8 sm:mt-12 bg-black dark:bg-white rounded-lg flex items-center justify-center">
               <span className="text-white dark:text-black font-bold text-xs sm:text-sm">P</span>
