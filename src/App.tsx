@@ -65,7 +65,10 @@ export default function App() {
     // Simulate login process
     console.log('Login attempt:', credentials);
     setIsAuthenticated(true);
-    navigate('/');
+    // Small delay to ensure state is updated before navigation
+    setTimeout(() => {
+      navigate('/', { replace: true });
+    }, 100);
   };
 
   const handleLogout = () => {
