@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home, Compass, Library, Command, Clock, Settings, Menu, X, Image, Newspaper, CreditCard } from 'lucide-react';
+import { Home, Compass, Library, Command, Clock, Settings, Menu, X, Image, Newspaper, CreditCard, User, LogOut } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 interface ChatThread {
@@ -17,6 +17,7 @@ interface SidebarProps {
   onNewThread: (query: string) => void;
   collapsed: boolean;
   onToggle: () => void;
+  onLogout: () => void;
 }
 
 const recentSearches = [
@@ -37,11 +38,13 @@ const Sidebar: React.FC<SidebarProps> = ({
   setActiveChatId, 
   onNewThread,
   collapsed,
-  onToggle
+  onToggle,
+  onLogout
 }) => {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = React.useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState<boolean>(false);
+  const [showUserMenu, setShowUserMenu] = React.useState<boolean>(false);
 
   // Check if we're on mobile/tablet
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
@@ -93,6 +96,31 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const handleRecentSearchClick = (search: string) => {
     onNewThread(search);
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  const handleUserMenuToggle = () => {
+    setShowUserMenu(!showUserMenu);
+  };
+
+  const handleLogout = () => {
+    setShowUserMenu(false);
+    onLogout();
+  };
+
+  const handleProfileClick = () => {
+    setShowUserMenu(false);
+    navigate('/settings/account');
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  const handleSettingsClick = () => {
+    setShowUserMenu(false);
+    navigate('/settings');
     if (isMobile) {
       setIsMobileMenuOpen(false);
     }
@@ -286,36 +314,67 @@ const Sidebar: React.FC<SidebarProps> = ({
         {/* Bottom Section */}
         <div className="mt-auto space-y-4">
           {/* Profile Section */}
-          <div className={`flex items-center px-1 sm:px-2 py-1 sm:py-2 ${isCollapsed && !isMobile ? 'justify-center' : 'justify-between'}`}>
-            <button onClick={() => navigate('/settings/account')} >
+          <div className={`relative flex items-center px-1 sm:px-2 py-1 sm:py-2 ${isCollapsed && !isMobile ? 'justify-center' : 'justify-between'}`}>
+            <button 
+              onClick={handleUserMenuToggle}
+              className="flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-[#2C2C2C] rounded-lg p-1 transition-colors"
+            >
               <div className="flex items-center gap-2">
-              <img
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
-                alt="Profile"
-                className={`rounded-full ${isCollapsed && !isMobile ? 'min-w-8' : 'w-6 h-6 sm:w-8 sm:h-8'}`}
-                title={isCollapsed && !isMobile ? 'melvindave (Pro)' : ''}
-              />
-              {(!isCollapsed || isMobile) && (
-                <div className="flex flex-col">
-                  <span className="text-xs sm:text-sm text-gray-900 dark:text-white">melvindave</span>
-                  <span className="text-xs mr-auto text-gray-500 dark:text-gray-400">Pro</span>
-                </div>
-              )}
-            </div>
+                <img
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
+                  alt="Profile"
+                  className={`rounded-full ${isCollapsed && !isMobile ? 'min-w-8' : 'w-6 h-6 sm:w-8 sm:h-8'}`}
+                  title={isCollapsed && !isMobile ? 'melvindave (Pro)' : ''}
+                />
+                {(!isCollapsed || isMobile) && (
+                  <div className="flex flex-col">
+                    <span className="text-xs sm:text-sm text-gray-900 dark:text-white">melvindave</span>
+                    <span className="text-xs mr-auto text-gray-500 dark:text-gray-400">Pro</span>
+                  </div>
+                )}
+              </div>
             </button>
-            {(!isCollapsed || isMobile) && <ThemeToggle />}
-            {(!isCollapsed || isMobile) && (
-              <button 
-              onClick={() => handleNavClick('/settings')}
-                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                title="Settings"
-              >
-                <Settings size={14} className="sm:w-4 sm:h-4" />
-              </button>
+            
+            {/* User Menu Dropdown */}
+            {showUserMenu && (!isCollapsed || isMobile) && (
+              <div className="absolute bottom-full left-0 mb-2 w-48 bg-white dark:bg-[#2C2C2C] rounded-lg shadow-lg border border-gray-200 dark:border-[#3C3C3C] py-2 z-50">
+                <button
+                  onClick={handleProfileClick}
+                  className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#3C3C3C] transition-colors"
+                >
+                  <User size={16} />
+                  View Profile
+                </button>
+                <button
+                  onClick={handleSettingsClick}
+                  className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#3C3C3C] transition-colors"
+                >
+                  <Settings size={16} />
+                  Settings
+                </button>
+                <div className="border-t border-gray-200 dark:border-[#3C3C3C] my-2"></div>
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                >
+                  <LogOut size={16} />
+                  Sign Out
+                </button>
+              </div>
             )}
+            
+            {(!isCollapsed || isMobile) && <ThemeToggle />}
           </div>
         </div>
       </div>
+      
+      {/* Overlay to close user menu when clicking outside */}
+      {showUserMenu && (
+        <div 
+          className="fixed inset-0 z-40" 
+          onClick={() => setShowUserMenu(false)}
+        />
+      )}
     </>
   );
 };

@@ -28,7 +28,7 @@ interface ChatThread {
 export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
 
   const [chatThreads, setChatThreads] = useState<ChatThread[]>([
     {id: '1', title: 'Welcome Thread', messages: []},
@@ -60,6 +60,18 @@ export default function App() {
   const handleSwitchToLogin = () => navigate('/login');
   const handleSwitchToForgotPassword = () => navigate('/forgot-password');
 
+  const handleLogin = (credentials: { email: string; password: string; rememberMe: boolean }) => {
+    // Simulate login process
+    console.log('Login attempt:', credentials);
+    setIsAuthenticated(true);
+    navigate('/');
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    navigate('/login');
+  };
+
   const createNewThread = (query: string) => {
     const newThread: ChatThread = {
       id: Date.now().toString(),
@@ -76,13 +88,12 @@ export default function App() {
   // Check if user is on auth pages
   const isAuthPage = ['/login', '/signup', '/forgot-password'].includes(location.pathname);
 
-  // Mock authentication check
+  // Redirect to login if not authenticated and not on auth page
   useEffect(() => {
-    // For demo purposes, we'll consider user authenticated if not on auth pages
-    if (!isAuthPage) {
-      setIsAuthenticated(true);
+    if (!isAuthenticated && !isAuthPage) {
+      navigate('/login');
     }
-  }, [isAuthPage]);
+  }, [isAuthenticated, isAuthPage, navigate]);
 
   // If on auth pages, show only auth components
   if (isAuthPage) {
@@ -91,7 +102,8 @@ export default function App() {
         <Routes>
           <Route path="/login" element={
             <Login 
-              onSwitchToSignUp={handleSwitchToSignUp} 
+              onLogin={handleLogin}
+              onSwitchToSignUp={handleSwitchToSignUp}
               onSwitchToForgotPassword={handleSwitchToForgotPassword} 
             />
           } />
@@ -106,6 +118,11 @@ export default function App() {
     );
   }
 
+  // Don't render main app if not authenticated
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <div className="flex h-screen bg-white dark:bg-black text-gray-900 dark:text-white transition-colors overflow-hidden">
       <Sidebar
@@ -116,6 +133,7 @@ export default function App() {
         activeChatId={activeChatId}
         setActiveChatId={setActiveChatId}
         onNewThread={createNewThread}
+        onLogout={handleLogout}
       />
 
       {!sidebarCollapsed && window.innerWidth < 1024 && (

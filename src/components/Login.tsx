@@ -2,11 +2,12 @@ import React from 'react';
 import { Eye, EyeOff, ArrowRight } from 'lucide-react';
 
 interface LoginProps {
+  onLogin: (credentials: { email: string; password: string; rememberMe: boolean }) => void;
   onSwitchToSignUp: () => void;
   onSwitchToForgotPassword: () => void;
 }
 
-export default function Login({ onSwitchToSignUp, onSwitchToForgotPassword }: LoginProps) {
+export default function Login({ onLogin, onSwitchToSignUp, onSwitchToForgotPassword }: LoginProps) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false);
@@ -14,7 +15,7 @@ export default function Login({ onSwitchToSignUp, onSwitchToForgotPassword }: Lo
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Login attempt:', { email, password, rememberMe });
+    onLogin({ email, password, rememberMe });
   };
 
   return (
