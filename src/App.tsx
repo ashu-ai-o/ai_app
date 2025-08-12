@@ -92,13 +92,6 @@ export default function App() {
   // Check if user is on auth pages
   const isAuthPage = ['/login', '/signup', '/forgot-password'].includes(location.pathname);
 
-  // Redirect to login if not authenticated and not on auth page
-  useEffect(() => {
-    if (!isAuthenticated && !isAuthPage) {
-      navigate('/login');
-    }
-  }, [isAuthenticated, isAuthPage, navigate]);
-
   // If on auth pages, show only auth components
   if (isAuthPage) {
     return (
@@ -122,11 +115,6 @@ export default function App() {
     );
   }
 
-  // Don't render main app if not authenticated
-  if (!isAuthenticated) {
-    return null;
-  }
-
   return (
     <div className="flex h-screen bg-white dark:bg-black text-gray-900 dark:text-white transition-colors overflow-hidden">
       <Sidebar
@@ -138,9 +126,10 @@ export default function App() {
         setActiveChatId={setActiveChatId}
         onNewThread={createNewThread}
         onLogout={handleLogout}
+        isAuthenticated={isAuthenticated}
       />
 
-      {!sidebarCollapsed && window.innerWidth < 1024 && (
+      {!sidebarCollapsed && typeof window !== 'undefined' && window.innerWidth < 1024 && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" onClick={() => setSidebarCollapsed(true)} />
       )}
 
@@ -151,7 +140,7 @@ export default function App() {
               <div className="text-center mb-8">
                 <h1 className="text-4xl font-bold text-gray-900 dark:text-white">triveni</h1>
               </div>
-              {activeThread ? <ChatThread thread={activeThread} /> : <MainContent onSearch={createNewThread} />}
+              {activeThread ? <ChatThread thread={activeThread} /> : <MainContent onSearch={createNewThread} isAuthenticated={isAuthenticated} onLogin={() => navigate('/login')} onSignUp={() => navigate('/signup')} />}
             </div>
           } />
           
@@ -196,6 +185,24 @@ export default function App() {
           } />
         </Routes>
       </main>
+
+      {/* Auth Buttons - Show only when not authenticated and not on auth pages */}
+      {!isAuthenticated && !isAuthPage && (
+        <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-50">
+          <button
+            onClick={() => navigate('/signup')}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-lg"
+          >
+            Sign Up
+          </button>
+          <button
+            onClick={() => navigate('/login')}
+            className="px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors font-medium shadow-lg border border-gray-300 dark:border-gray-600"
+          >
+            Login
+          </button>
+        </div>
+      )}
     </div>
   );
 }

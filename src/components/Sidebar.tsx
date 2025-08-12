@@ -18,6 +18,7 @@ interface SidebarProps {
   collapsed: boolean;
   onToggle: () => void;
   onLogout: () => void;
+  isAuthenticated?: boolean;
 }
 
 const recentSearches = [
@@ -39,7 +40,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   onNewThread,
   collapsed,
   onToggle,
-  onLogout
+  onLogout,
+  isAuthenticated = true
 }) => {
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = React.useState<boolean>(false);
@@ -189,7 +191,8 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* New Thread Button */}
-        <button className={`
+        {isAuthenticated && (
+          <button className={`
           flex items-center gap-2 bg-gray-200 dark:bg-[#2C2C2C] text-gray-900 dark:text-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg mb-4 sm:mb-6 transition-colors hover:bg-gray-300 dark:hover:bg-[#3C3C3C] text-sm sm:text-base
           ${isCollapsed && !isMobile ? 'justify-center px-1 py-1' : ''}
         `}
@@ -202,7 +205,8 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
           )}
           {isCollapsed && !isMobile && <Command size={14} />}
-        </button>
+          </button>
+        )}
 
         {/* Navigation */}
         <nav className="space-y-1">
@@ -290,7 +294,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           {(!isCollapsed || isMobile) && <div className="pt-2 sm:pt-4" />}
 
           {/* Recent Searches - Only show when not collapsed */}
-          {(!isCollapsed || isMobile) && (
+          {(!isCollapsed || isMobile) && isAuthenticated && (
             <div className="mt-1 sm:mt-2 space-y-1 max-h-48 sm:max-h-64 overflow-y-auto">
               {/* Chat Threads */}
               {chatThreads.slice(0, 7).map((thread) => (
@@ -313,8 +317,17 @@ const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Bottom Section */}
         <div className="mt-auto space-y-4">
+          {!isAuthenticated && (!isCollapsed || isMobile) && (
+            <div className="text-center p-4 bg-gray-50 dark:bg-[#2C2C2C] rounded-lg">
+              <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                Sign in to access all features
+              </p>
+            </div>
+          )}
+          
           {/* Profile Section */}
-          <div className={`relative flex items-center px-1 sm:px-2 py-1 sm:py-2 ${isCollapsed && !isMobile ? 'justify-center' : 'justify-between'}`}>
+          {isAuthenticated && (
+            <div className={`relative flex items-center px-1 sm:px-2 py-1 sm:py-2 ${isCollapsed && !isMobile ? 'justify-center' : 'justify-between'}`}>
             <button 
               onClick={handleUserMenuToggle}
               className="flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-[#2C2C2C] rounded-lg p-1 transition-colors"
@@ -364,7 +377,15 @@ const Sidebar: React.FC<SidebarProps> = ({
             )}
             
             {(!isCollapsed || isMobile) && <ThemeToggle />}
-          </div>
+            </div>
+          )}
+          
+          {/* Theme toggle for non-authenticated users */}
+          {!isAuthenticated && (
+            <div className={`flex items-center px-1 sm:px-2 py-1 sm:py-2 ${isCollapsed && !isMobile ? 'justify-center' : 'justify-end'}`}>
+              <ThemeToggle />
+            </div>
+          )}
         </div>
       </div>
       
