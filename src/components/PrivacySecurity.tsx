@@ -127,12 +127,12 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                   </div>
                   <button 
                     onClick={() => setDataCollection(!dataCollection)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                    className={`relative inline-flex h-5 w-9 xs:h-6 xs:w-11 items-center rounded-full transition-colors ${
                       dataCollection ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
                     }`}
                   >
-                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      dataCollection ? 'translate-x-6' : 'translate-x-1'
+                    <span className={`inline-block h-3 w-3 xs:h-4 xs:w-4 transform rounded-full bg-white transition-transform ${
+                      dataCollection ? 'translate-x-5 xs:translate-x-6' : 'translate-x-1'
                     }`} />
                   </button>
                 </div>
@@ -147,12 +147,12 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                   </div>
                   <button 
                     onClick={() => setSearchHistory(!searchHistory)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                    className={`relative inline-flex h-5 w-9 xs:h-6 xs:w-11 items-center rounded-full transition-colors ${
                       searchHistory ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
                     }`}
                   >
-                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      searchHistory ? 'translate-x-6' : 'translate-x-1'
+                    <span className={`inline-block h-3 w-3 xs:h-4 xs:w-4 transform rounded-full bg-white transition-transform ${
+                      searchHistory ? 'translate-x-5 xs:translate-x-6' : 'translate-x-1'
                     }`} />
                   </button>
                 </div>
@@ -167,12 +167,12 @@ const PrivacySecurity: React.FC<PrivacySecurityProps> = ({ onBack }) => {
                   </div>
                   <button 
                     onClick={() => setAnalytics(!analytics)}
-                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                    className={`relative inline-flex h-5 w-9 xs:h-6 xs:w-11 items-center rounded-full transition-colors ${
                       analytics ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600'
                     }`}
                   >
-                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                      analytics ? 'translate-x-6' : 'translate-x-1'
+                    <span className={`inline-block h-3 w-3 xs:h-4 xs:w-4 transform rounded-full bg-white transition-transform ${
+                      analytics ? 'translate-x-5 xs:translate-x-6' : 'translate-x-1'
                     }`} />
                   </button>
                 </div>
