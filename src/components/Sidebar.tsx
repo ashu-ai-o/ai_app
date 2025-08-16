@@ -288,14 +288,9 @@ const Sidebar: React.FC<SidebarProps> = ({
             {(!isCollapsed || isMobile) && <span>Pricing</span>}
           </button>
 
-          {/* Spacer for collapsed mode */}
-          {isCollapsed && !isMobile && <div className="pt-1 sm:pt-2" />}
-          
-          {(!isCollapsed || isMobile) && <div className="pt-2 sm:pt-4" />}
-
-          {/* Recent Searches - Only show when not collapsed */}
+          {/* Chat Threads - Only show when not collapsed and authenticated */}
           {(!isCollapsed || isMobile) && isAuthenticated && (
-            <div className="mt-1 sm:mt-2 space-y-1 max-h-48 sm:max-h-64 overflow-y-auto">
+            <div className="mt-2 sm:mt-4 space-y-1 max-h-48 sm:max-h-64 overflow-y-auto">
               {/* Chat Threads */}
               {chatThreads.slice(0, 7).map((thread) => (
                 <button
@@ -313,6 +308,9 @@ const Sidebar: React.FC<SidebarProps> = ({
               ))}
             </div>
           )}
+
+          {/* Spacer for collapsed mode */}
+          {isCollapsed && !isMobile && <div className="pt-1 sm:pt-2" />}
         </nav>
 
         {/* Bottom Section */}
