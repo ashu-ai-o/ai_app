@@ -260,33 +260,33 @@ export default function Library() {
     <>
       <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-3 sm:p-6 border-b border-gray-200 dark:border-gray-800">
-          <h1 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">My media</h1>
-          <div className="flex items-center gap-3">
-            <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
-              <Filter size={16} className="sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
+        <div className="flex items-center justify-between p-2 xs:p-3 sm:p-6 border-b border-gray-200 dark:border-gray-800">
+          <h1 className="text-base xs:text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">My media</h1>
+          <div className="flex items-center gap-1 xs:gap-2 sm:gap-3">
+            <button className="p-1.5 xs:p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <Filter size={14} className="xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
             </button>
-            <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
-              <Menu size={16} className="sm:w-5 sm:h-5 text-gray-400" />
+            <button className="p-1.5 xs:p-2 hover:bg-gray-800 rounded-lg transition-colors">
+              <Menu size={14} className="xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-400" />
             </button>
-            <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
-              <Bell size={16} className="sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
+            <button className="p-1.5 xs:p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <Bell size={14} className="xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
             </button>
-            <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
-              <User size={16} className="sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
+            <button className="p-1.5 xs:p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <User size={14} className="xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
             </button>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-3 sm:p-6">
+        <div className="p-2 xs:p-3 sm:p-6">
           {/* Date Header */}
-          <div className="mb-4 sm:mb-6">
-            <h2 className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">Thu Jul 10</h2>
+          <div className="mb-3 xs:mb-4 sm:mb-6">
+            <h2 className="text-gray-600 dark:text-gray-400 text-xs font-medium">Thu Jul 10</h2>
           </div>
 
           {/* Images Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
+          <div className="grid grid-cols-2 gap-1.5 xs:gap-2 sm:gap-4 lg:gap-6">
             {generatedImages.map((item) => (
               <div 
                 key={item.id} 
@@ -299,8 +299,8 @@ export default function Library() {
                 }}
               >
                 {/* Image Container */}
-                <div className="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-900 mb-2 sm:mb-3 cursor-pointer">
-                  <div className="aspect-square sm:aspect-[4/3]">
+                <div className="relative overflow-hidden rounded-md xs:rounded-lg bg-gray-100 dark:bg-gray-900 mb-1.5 xs:mb-2 sm:mb-3 cursor-pointer">
+                  <div className="aspect-square">
                     <img
                       src={item.image}
                       alt={item.title}
@@ -309,7 +309,7 @@ export default function Library() {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className={`absolute top-1 right-1 sm:top-2 sm:right-2 flex gap-1 transition-opacity duration-200 ${
+                  <div className={`absolute top-1 right-1 flex gap-0.5 xs:gap-1 transition-opacity duration-200 ${
                     hoveredImage === item.id ? 'opacity-100' : 'opacity-0'
                   }`}>
                     <button 
@@ -317,10 +317,10 @@ export default function Library() {
                         e.stopPropagation();
                         handleDeleteImage(item.id);
                       }}
-                      className="p-1 sm:p-1.5 bg-black/60 hover:bg-red-600/80 rounded-lg backdrop-blur-sm transition-colors"
+                      className="p-1 bg-black/60 hover:bg-red-600/80 rounded backdrop-blur-sm transition-colors"
                       title="Delete image"
                     >
-                      <Trash2 size={12} className="text-white sm:w-3.5 sm:h-3.5" />
+                      <Trash2 size={10} className="text-white" />
                     </button>
                     <div className="relative">
                       <button 
@@ -328,8 +328,231 @@ export default function Library() {
                           e.stopPropagation();
                           setShowMoreMenu(showMoreMenu === item.id ? null : item.id);
                         }}
-                        className="p-1 sm:p-1.5 bg-black/60 hover:bg-black/80 rounded-lg backdrop-blur-sm transition-colors"
+                        className="p-1 bg-black/60 hover:bg-black/80 rounded backdrop-blur-sm transition-colors"
                         title="More options"
+                      >
+                        <MoreHorizontal size={10} className="text-white" />
+                      </button>
+                      
+                      {/* More Options Menu */}
+                      {showMoreMenu === item.id && (
+                        <div className="absolute top-full right-0 mt-1 w-28 xs:w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-10">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleFavorite(item.id);
+                            }}
+                            className="w-full flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                          >
+                            <Heart size={10} />
+                            Favorite
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDownload(item.id);
+                            }}
+                            className="w-full flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                          >
+                            <Download size={10} />
+                            Download
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Image Info */}
+                <div className="space-y-1 px-1">
+                  <h3 className="text-gray-900 dark:text-white font-medium text-xs leading-tight line-clamp-2">{item.title}</h3>
+                  <div className="flex items-start gap-1 text-xs text-gray-600 dark:text-gray-400">
+                    <span className="shrink-0">Prompt</span>
+                    <span className="line-clamp-2 leading-relaxed text-xs">{item.prompt.substring(0, 40)}...</span>
+                  </div>
+                  <div className="text-xs text-gray-500 dark:text-gray-500">{item.timestamp}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Modal */}
+      {selectedImage && (
+        <div className="fixed inset-0 bg-black z-50 flex flex-col overflow-hidden">
+          {/* Top Navbar */}
+          <div className="bg-black/30 backdrop-blur-sm px-2 xs:px-3 sm:px-4 py-2">
+            <div className="flex items-center justify-between">
+              {/* Left side - Logo */}
+              <div className="flex items-center">
+                <div className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 bg-white rounded-lg flex items-center justify-center">
+                  <div className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 bg-black rounded-sm flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 xs:w-2 xs:h-2 bg-white rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Center - User info and title */}
+              <div className="flex flex-col items-center flex-1 mx-2">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-white font-medium text-xs xs:text-sm">My media</span>
+                  <span className="text-gray-300">•</span>
+                  <span className="text-white font-medium text-xs xs:text-sm truncate max-w-20 xs:max-w-32">{selectedImage.title}</span>
+                </div>
+                <div className="text-gray-300 text-xs">
+                  Jul 19, 12:29AM
+                </div>
+              </div>
+
+              {/* Right side - Actions */}
+              <div className="flex items-center gap-1 xs:gap-2">
+                <button className="p-1.5 xs:p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <Heart size={12} className="xs:w-4 xs:h-4 text-white" />
+                </button>
+                
+                <button className="p-1.5 xs:p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <Download size={12} className="xs:w-4 xs:h-4 text-white" />
+                </button>
+                
+                <button className="p-1.5 xs:p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <Share2 size={12} className="xs:w-4 xs:h-4 text-white" />
+                </button>
+                
+                <img
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
+                  alt="User"
+                  className="w-5 h-5 xs:w-6 xs:h-6 rounded-full"
+                />
+                
+                <button
+                  onClick={closeModal}
+                  className="p-1.5 xs:p-2 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <X size={14} className="xs:w-5 xs:h-5 text-white" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Centered Image with Black Sidebars and Navigation */}
+          <div className="flex-1 flex items-center justify-center bg-black relative">
+            {/* Previous Image (Left) */}
+            {getPreviousImage() && (
+              <div className="absolute left-1 xs:left-2 top-1/2 transform -translate-y-1/2 z-10">
+                <button
+                  onClick={handlePreviousImage}
+                  className="group relative"
+                >
+                  <img
+                    src={getPreviousImage()?.image}
+                    alt="Previous"
+                    className="w-8 h-8 xs:w-12 xs:h-12 sm:w-16 sm:h-16 object-cover rounded-lg blur-sm opacity-60 group-hover:opacity-80 group-hover:blur-none transition-all duration-300"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-4 h-4 xs:w-6 xs:h-6 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-2 h-2 xs:w-3 xs:h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            )}
+
+            {/* Main Image */}
+            <img
+              src={selectedImage.image}
+              alt={selectedImage.title}
+              className="max-w-full max-h-full object-contain px-1 xs:px-2"
+            />
+
+            {/* Next Image (Right) */}
+            {getNextImage() && (
+              <div className="absolute right-1 xs:right-2 top-1/2 transform -translate-y-1/2 z-10">
+                <button
+                  onClick={handleNextImage}
+                  className="group relative"
+                >
+                  <img
+                    src={getNextImage()?.image}
+                    alt="Next"
+                    className="w-8 h-8 xs:w-12 xs:h-12 sm:w-16 sm:h-16 object-cover rounded-lg blur-sm opacity-60 group-hover:opacity-80 group-hover:blur-none transition-all duration-300"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-4 h-4 xs:w-6 xs:h-6 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-2 h-2 xs:w-3 xs:h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Prompt Section Below Image */}
+          <div className="bg-black p-2 xs:p-3 sm:p-4">
+            <div className="max-w-full mx-auto overflow-hidden">
+              <div className="flex items-start gap-3 mb-2">
+                <span className="text-gray-400 text-xs font-medium">Prompt</span>
+              </div>
+              <p 
+                className="text-white leading-relaxed text-xs mb-3 xs:mb-4 cursor-pointer transition-all duration-300 hover:opacity-80 break-words"
+                title={selectedImage.prompt}
+              >
+                {selectedImage.prompt.length > 80 
+                  ? `${selectedImage.prompt.substring(0, 80)}...` 
+                  : selectedImage.prompt
+                }
+              </p>
+              
+              {/* Action Buttons */}
+              <div className="flex items-center justify-center gap-2 xs:gap-3 sm:gap-4 flex-wrap">
+                <button
+                  onClick={() => handleLike(selectedImage.id)}
+                  className="flex flex-col items-center gap-1 p-2 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <Heart size={14} className="text-white" />
+                  <span className="text-white text-xs">Like</span>
+                </button>
+                
+                <button className="flex flex-col items-center gap-1 p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <Star size={14} className="text-white" />
+                  <span className="text-white text-xs">Favorite</span>
+                </button>
+                
+                <button className="flex flex-col items-center gap-1 p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <ThumbsDown size={14} className="text-white" />
+                  <span className="text-white text-xs">Dislike</span>
+                </button>
+                
+                <button
+                  onClick={handleCopyPrompt}
+                  className="flex flex-col items-center gap-1 p-2 hover:bg-white/10 rounded-lg transition-colors"
+                >
+                  <Edit size={14} className="text-white" />
+                  <span className="text-white text-xs">Edit</span>
+                </button>
+                
+                <button className="flex flex-col items-center gap-1 p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <RotateCcw size={14} className="text-white" />
+                  <span className="text-white text-xs">Remix</span>
+                </button>
+                
+                <button className="flex flex-col items-center gap-1 p-2 hover:bg-white/10 rounded-lg transition-colors">
+                  <Video size={14} className="text-white" />
+                  <span className="text-white text-xs">Video</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
                       >
                         <MoreHorizontal size={12} className="text-white sm:w-3.5 sm:h-3.5" />
                       </button>

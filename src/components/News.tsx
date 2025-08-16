@@ -130,36 +130,36 @@ export default function News() {
     <div className="min-h-screen bg-white dark:bg-black">
       {/* Header */}
       <div className="sticky top-0 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Discover</h1>
-            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-              <TrendingUp size={16} />
+        <div className="max-w-4xl mx-auto px-2 xs:px-4 py-3 xs:py-6">
+          <div className="flex items-center justify-between mb-3 xs:mb-6">
+            <h1 className="text-lg xs:text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">Discover</h1>
+            <div className="flex items-center gap-1 xs:gap-2 text-xs xs:text-sm text-gray-500 dark:text-gray-400">
+              <TrendingUp size={14} className="xs:w-4 xs:h-4" />
               <span>Trending topics</span>
             </div>
           </div>
 
           {/* Search Bar */}
-          <form onSubmit={handleSearch} className="mb-6">
+          <form onSubmit={handleSearch} className="mb-3 xs:mb-6">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+              <Search className="absolute left-3 xs:left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for topics, questions, or keywords..."
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                className="w-full pl-9 xs:pl-12 pr-3 xs:pr-4 py-2.5 xs:py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm xs:text-base"
               />
             </div>
           </form>
 
           {/* Category Filters */}
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex gap-1.5 xs:gap-2 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+                className={`px-3 xs:px-4 py-1.5 xs:py-2 rounded-full text-xs xs:text-sm font-medium whitespace-nowrap transition-all ${
                   selectedCategory === category
                     ? 'bg-black text-white border border-black dark:border-white'
                     : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-black hover:text-white hover:border-black dark:hover:border-white border border-transparent'
@@ -173,47 +173,47 @@ export default function News() {
       </div>
 
       {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 py-6">
+      <div className="max-w-4xl mx-auto px-2 xs:px-4 py-3 xs:py-6">
         {/* Trending Section */}
-        <div className="mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <TrendingUp className="text-orange-500" size={20} />
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Trending</h2>
+        <div className="mb-6 xs:mb-8">
+          <div className="flex items-center gap-2 mb-3 xs:mb-4">
+            <TrendingUp className="text-orange-500" size={16} className="xs:w-5 xs:h-5" />
+            <h2 className="text-base xs:text-lg font-semibold text-gray-900 dark:text-white">Trending</h2>
           </div>
-          <div className="grid gap-4">
+          <div className="grid gap-3 xs:gap-4">
             {filteredItems.filter(item => item.trending).map((item) => (
               <div
                 key={item.id}
-                className="group p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-sm transition-all cursor-pointer"
+                className="group p-3 xs:p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-sm transition-all cursor-pointer"
               >
-                <div className="flex gap-4">
+                <div className="flex gap-2 xs:gap-4">
                   {item.image && (
                     <div className="flex-shrink-0">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-24 h-16 sm:w-32 sm:h-20 object-cover rounded-lg"
+                        className="w-16 h-12 xs:w-24 xs:h-16 sm:w-32 sm:h-20 object-cover rounded-lg"
                       />
                     </div>
                   )}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-medium rounded-full">
+                    <div className="flex items-center gap-1 xs:gap-2 mb-1.5 xs:mb-2">
+                      <span className="px-1.5 xs:px-2 py-0.5 xs:py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-medium rounded-full">
                         Trending
                       </span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">{item.category}</span>
-                      <span className="text-sm text-gray-400">•</span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">{item.timeAgo}</span>
+                      <span className="text-xs xs:text-sm text-gray-500 dark:text-gray-400">{item.category}</span>
+                      <span className="text-xs xs:text-sm text-gray-400">•</span>
+                      <span className="text-xs xs:text-sm text-gray-500 dark:text-gray-400">{item.timeAgo}</span>
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-sm xs:text-base sm:text-lg font-medium text-gray-900 dark:text-white mb-1.5 xs:mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
                       {item.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-3">
+                    <p className="text-gray-600 dark:text-gray-300 text-xs xs:text-sm leading-relaxed mb-2 xs:mb-3 line-clamp-2">
                       {item.summary}
                     </p>
-                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                    <div className="flex items-center gap-1 xs:gap-2 text-xs xs:text-sm text-gray-500 dark:text-gray-400">
                       <span>{item.source}</span>
-                      <Clock size={14} />
+                      <Clock size={12} className="xs:w-3.5 xs:h-3.5" />
                       <span>{item.timeAgo} ago</span>
                     </div>
                   </div>
@@ -225,45 +225,45 @@ export default function News() {
 
         {/* All News Section */}
         <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <div className="flex items-center justify-between mb-3 xs:mb-4">
+            <h2 className="text-base xs:text-lg font-semibold text-gray-900 dark:text-white">
               {selectedCategory === 'All' ? 'Latest' : selectedCategory}
             </h2>
-            <button className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+            <button className="flex items-center gap-1 text-xs xs:text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
               <span>Sort by relevance</span>
-              <ChevronDown size={16} />
+              <ChevronDown size={14} className="xs:w-4 xs:h-4" />
             </button>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-3 xs:space-y-4">
             {filteredItems.map((item) => (
               <div
                 key={item.id}
-                className="group p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-sm transition-all cursor-pointer"
+                className="group p-3 xs:p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-sm transition-all cursor-pointer"
               >
-                <div className="flex gap-4">
+                <div className="flex gap-2 xs:gap-4">
                   {item.image && (
                     <div className="flex-shrink-0">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-24 h-16 sm:w-32 sm:h-20 object-cover rounded-lg"
+                        className="w-16 h-12 xs:w-24 xs:h-16 sm:w-32 sm:h-20 object-cover rounded-lg"
                       />
                     </div>
                   )}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-medium rounded-full">
+                    <div className="flex items-center gap-1 xs:gap-2 mb-1.5 xs:mb-2">
+                      <span className="px-1.5 xs:px-2 py-0.5 xs:py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-medium rounded-full">
                         {item.category}
                       </span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">{item.source}</span>
-                      <span className="text-sm text-gray-400">•</span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">{item.timeAgo}</span>
+                      <span className="text-xs xs:text-sm text-gray-500 dark:text-gray-400">{item.source}</span>
+                      <span className="text-xs xs:text-sm text-gray-400">•</span>
+                      <span className="text-xs xs:text-sm text-gray-500 dark:text-gray-400">{item.timeAgo}</span>
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-sm xs:text-base sm:text-lg font-medium text-gray-900 dark:text-white mb-1.5 xs:mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
                       {item.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-300 text-xs xs:text-sm leading-relaxed line-clamp-2">
                       {item.summary}
                     </p>
                   </div>
@@ -273,8 +273,8 @@ export default function News() {
           </div>
 
           {/* Load More */}
-          <div className="text-center mt-8">
-            <button className="px-6 py-3 bg-gray-100 dark:bg-black text-gray-900 dark:text-white rounded-xl hover:bg-gray-200 dark:hover:bg-gray-900 dark:hover:border dark:hover:border-white border border-transparent transition-colors font-medium">
+          <div className="text-center mt-6 xs:mt-8">
+            <button className="px-4 xs:px-6 py-2.5 xs:py-3 bg-gray-100 dark:bg-black text-gray-900 dark:text-white rounded-xl hover:bg-gray-200 dark:hover:bg-gray-900 dark:hover:border dark:hover:border-white border border-transparent transition-colors font-medium text-sm xs:text-base">
               Load more stories
             </button>
           </div>

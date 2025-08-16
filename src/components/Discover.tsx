@@ -267,200 +267,200 @@ export default function Discover() {
   return (
     <>
       <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-y-auto">
-      {/* Header */}
-      <div className="flex items-center justify-between p-3 sm:p-6 border-b border-gray-200 dark:border-gray-800">
-        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Discover</h1>
-        <div className="flex items-center gap-3">
-          <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
-            <Filter size={16} className="sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
-          </button>
-          <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
-            <Menu size={16} className="sm:w-5 sm:h-5 text-gray-400" />
-          </button>
-          <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            <Bell size={16} className="sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
-          </button>
-          <button className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
-            <User size={16} className="sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
-          </button>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-3 sm:p-6">
-        {/* Date Header */}
-        <div className="mb-4 sm:mb-6">
-          <h2 className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">Thu Jul 10</h2>
+        {/* Header */}
+        <div className="flex items-center justify-between p-2 xs:p-3 sm:p-6 border-b border-gray-200 dark:border-gray-800">
+          <h1 className="text-base xs:text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Discover</h1>
+          <div className="flex items-center gap-1 xs:gap-2 sm:gap-3">
+            <button className="p-1.5 xs:p-2 hover:bg-gray-800 rounded-lg transition-colors">
+              <Filter size={14} className="xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
+            </button>
+            <button className="p-1.5 xs:p-2 hover:bg-gray-800 rounded-lg transition-colors">
+              <Menu size={14} className="xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-400" />
+            </button>
+            <button className="p-1.5 xs:p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <Bell size={14} className="xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
+            </button>
+            <button className="p-1.5 xs:p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <User size={14} className="xs:w-4 xs:h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" />
+            </button>
+          </div>
         </div>
 
-        {/* Images Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 lg:gap-6">
-          {generatedImages.map((item) => (
-            <div 
-              key={item.id} 
-              className="group"
-              onClick={() => handleImageClick(item)}
-              onMouseEnter={() => setHoveredImage(item.id)}
-              onMouseLeave={() => {
-                setHoveredImage(null);
-                setShowMoreMenu(null);
-              }}
-            >
-              {/* Image Container */}
-              <div className="relative overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-900 mb-2 sm:mb-3">
-                <div className="aspect-square sm:aspect-[4/3]">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
-                  />
-                </div>
+        {/* Content */}
+        <div className="p-2 xs:p-3 sm:p-6">
+          {/* Date Header */}
+          <div className="mb-3 xs:mb-4 sm:mb-6">
+            <h2 className="text-gray-600 dark:text-gray-400 text-xs font-medium">Thu Jul 10</h2>
+          </div>
 
-                {/* Hover Overlay */}
-                <div className={`absolute inset-0 bg-black/50 transition-opacity duration-200 ${
-                  hoveredImage === item.id ? 'opacity-85' : 'opacity-0'
-                }`} />
+          {/* Images Grid */}
+          <div className="grid grid-cols-2 gap-1.5 xs:gap-2 sm:gap-4 lg:gap-6">
+            {generatedImages.map((item) => (
+              <div 
+                key={item.id} 
+                className="group"
+                onClick={() => handleImageClick(item)}
+                onMouseEnter={() => setHoveredImage(item.id)}
+                onMouseLeave={() => {
+                  setHoveredImage(null);
+                  setShowMoreMenu(null);
+                }}
+              >
+                {/* Image Container */}
+                <div className="relative overflow-hidden rounded-md xs:rounded-lg bg-gray-100 dark:bg-gray-900 mb-1.5 xs:mb-2 sm:mb-3">
+                  <div className="aspect-square">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                    />
+                  </div>
 
-                {/* Action Buttons */}
-                <div className={`absolute top-1 right-1 sm:top-2 sm:right-2 flex gap-1 transition-opacity duration-200 ${
-                  hoveredImage === item.id ? 'opacity-100' : 'opacity-0'
-                }`}>
-                  <button 
-                    onClick={() => handleDeleteImage(item.id)}
-                    className="p-1 sm:p-1.5 bg-black/60 hover:bg-red-600/80 rounded-lg backdrop-blur-sm transition-colors"
-                    title="Delete image"
-                  >
-                    <Trash2 size={12} className="text-white sm:w-3.5 sm:h-3.5" />
-                  </button>
-                  <div className="relative">
+                  {/* Hover Overlay */}
+                  <div className={`absolute inset-0 bg-black/50 transition-opacity duration-200 ${
+                    hoveredImage === item.id ? 'opacity-85' : 'opacity-0'
+                  }`} />
+
+                  {/* Action Buttons */}
+                  <div className={`absolute top-1 right-1 flex gap-0.5 xs:gap-1 transition-opacity duration-200 ${
+                    hoveredImage === item.id ? 'opacity-100' : 'opacity-0'
+                  }`}>
                     <button 
-                      onClick={() => setShowMoreMenu(showMoreMenu === item.id ? null : item.id)}
-                      className="p-1 sm:p-1.5 bg-black/60 hover:bg-black/80 rounded-lg backdrop-blur-sm transition-colors"
-                      title="More options"
+                      onClick={() => handleDeleteImage(item.id)}
+                      className="p-1 bg-black/60 hover:bg-red-600/80 rounded backdrop-blur-sm transition-colors"
+                      title="Delete image"
                     >
-                      <MoreHorizontal size={12} className="text-white sm:w-3.5 sm:h-3.5" />
+                      <Trash2 size={10} className="text-white" />
                     </button>
-                    
-                    {/* More Options Menu */}
-                    {showMoreMenu === item.id && (
-                      <div className="absolute top-full right-0 mt-1 w-32 sm:w-36 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 sm:py-2 z-10">
-                        <button
-                          onClick={() => handleFavorite(item.id)}
-                          className="w-full flex items-center gap-2 px-2 sm:px-3 py-1.5 sm:py-2 text-xs text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                        >
-                          <Heart size={10} className="sm:w-3 sm:h-3" />
-                          Add to favorites
-                        </button>
-                        <button
-                          onClick={() => handleDownload(item.id)}
-                          className="w-full flex items-center gap-2 px-2 sm:px-3 py-1.5 sm:py-2 text-xs text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                        >
-                          <Download size={10} className="sm:w-3 sm:h-3" />
-                          Download
-                        </button>
-                      </div>
-                    )}
+                    <div className="relative">
+                      <button 
+                        onClick={() => setShowMoreMenu(showMoreMenu === item.id ? null : item.id)}
+                        className="p-1 bg-black/60 hover:bg-black/80 rounded backdrop-blur-sm transition-colors"
+                        title="More options"
+                      >
+                        <MoreHorizontal size={10} className="text-white" />
+                      </button>
+                      
+                      {/* More Options Menu */}
+                      {showMoreMenu === item.id && (
+                        <div className="absolute top-full right-0 mt-1 w-28 xs:w-32 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-10">
+                          <button
+                            onClick={() => handleFavorite(item.id)}
+                            className="w-full flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                          >
+                            <Heart size={10} />
+                            Favorite
+                          </button>
+                          <button
+                            onClick={() => handleDownload(item.id)}
+                            className="w-full flex items-center gap-1.5 px-2 py-1.5 text-xs text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                          >
+                            <Download size={10} />
+                            Download
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Username (Bottom Left) */}
+                  <div className="absolute bottom-1 left-1 flex items-center gap-1">
+                    <img
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=faces"
+                      alt="User"
+                      className="w-3 h-3 xs:w-4 xs:h-4 rounded-full border border-white"
+                    />
+                    <span className="text-white text-xs font-medium hidden xs:inline">melvindave</span>
+                  </div>
+
+                  {/* Action Buttons (Bottom Right) */}
+                  <div className="absolute bottom-1 right-1 flex gap-0.5 xs:gap-1">
+                    <button 
+                      onClick={() => handleLike(item.id)}
+                      className="p-1 bg-black/60 hover:bg-red-600/80 rounded backdrop-blur-sm transition-colors"
+                      title="Like image"
+                    >
+                      <Heart size={10} className="text-white" />
+                    </button>
+                    <button 
+                      onClick={() => handleShare(item.id)}
+                      className="p-1 bg-black/60 hover:bg-blue-600/80 rounded backdrop-blur-sm transition-colors"
+                      title="Share image"
+                    >
+                      <Share2 size={10} className="text-white" />
+                    </button>
                   </div>
                 </div>
-
-                {/* Username (Bottom Left) */}
-                <div className="absolute bottom-1 left-1 sm:bottom-2 sm:left-2 flex items-center gap-1 sm:gap-2">
-                  <img
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=24&h=24&fit=crop&crop=faces"
-                    alt="User"
-                    className="w-4 h-4 sm:w-5 sm:h-5 rounded-full border border-white"
-                  />
-                  <span className="text-white text-xs font-medium hidden sm:inline">melvindave</span>
-                </div>
-
-                {/* Action Buttons (Bottom Right) */}
-                <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 flex gap-1">
-                  <button 
-                    onClick={() => handleLike(item.id)}
-                    className="p-1 sm:p-1.5 bg-black/60 hover:bg-red-600/80 rounded-lg backdrop-blur-sm transition-colors"
-                    title="Like image"
-                  >
-                    <Heart size={12} className="text-white sm:w-3.5 sm:h-3.5" />
-                  </button>
-                  <button 
-                    onClick={() => handleShare(item.id)}
-                    className="p-1 sm:p-1.5 bg-black/60 hover:bg-blue-600/80 rounded-lg backdrop-blur-sm transition-colors"
-                    title="Share image"
-                  >
-                    <Share2 size={12} className="text-white sm:w-3.5 sm:h-3.5" />
-                  </button>
-                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
 
       {/* Modal */}
       {selectedImage && (
         <div className="fixed inset-0 bg-black z-50 flex flex-col overflow-hidden">
           {/* Top Navbar */}
-          <div className="bg-black/30 backdrop-blur-sm px-2 sm:px-4 py-2 sm:py-3">
+          <div className="bg-black/30 backdrop-blur-sm px-2 xs:px-3 sm:px-4 py-2">
             <div className="flex items-center justify-between">
               {/* Left side - Logo */}
               <div className="flex items-center">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white rounded-lg flex items-center justify-center">
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 bg-black rounded-sm flex items-center justify-center">
-                    <div className="w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"></div>
+                <div className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 bg-white rounded-lg flex items-center justify-center">
+                  <div className="w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5 bg-black rounded-sm flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 xs:w-2 xs:h-2 sm:w-3 sm:h-3 bg-white rounded-full"></div>
                   </div>
                 </div>
               </div>
 
               {/* Center - User info and title */}
-              <div className="flex flex-col items-center flex-1 mx-2 sm:mx-4">
+              <div className="flex flex-col items-center flex-1 mx-2">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-white font-medium text-sm sm:text-base">danny_particle</span>
+                  <span className="text-white font-medium text-xs xs:text-sm">danny_particle</span>
                   <span className="text-gray-300">•</span>
-                  <span className="text-white font-medium text-sm sm:text-base truncate max-w-32 sm:max-w-none">{selectedImage.title}</span>
+                  <span className="text-white font-medium text-xs xs:text-sm truncate max-w-20 xs:max-w-32">{selectedImage.title}</span>
                 </div>
-                <div className="text-gray-300 text-xs sm:text-sm">
+                <div className="text-gray-300 text-xs">
                   Jul 28, 4:06PM
                 </div>
               </div>
 
               {/* Right side - Actions */}
-              <div className="flex items-center gap-1 sm:gap-3">
+              <div className="flex items-center gap-1 xs:gap-2">
                 <button
                   onClick={() => handleLike(selectedImage.id)}
-                  className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 hover:bg-white/10 rounded-lg transition-colors"
+                  className="flex items-center gap-1 px-1.5 xs:px-2 py-1 hover:bg-white/10 rounded-lg transition-colors"
                 >
-                  <Heart size={14} className="sm:w-4 sm:h-4 text-white" />
-                  <span className="text-white text-xs sm:text-sm">464</span>
+                  <Heart size={12} className="xs:w-4 xs:h-4 text-white" />
+                  <span className="text-white text-xs">464</span>
                 </button>
                 
                 <button
                   onClick={handleCopyPrompt}
-                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                  className="p-1.5 xs:p-2 hover:bg-white/10 rounded-lg transition-colors"
                   title="Copy prompt"
                 >
-                  <Copy size={14} className="sm:w-4 sm:h-4 text-white" />
+                  <Copy size={12} className="xs:w-4 xs:h-4 text-white" />
                 </button>
                 
                 <button
                   onClick={() => handleShare(selectedImage.id)}
-                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                  className="p-1.5 xs:p-2 hover:bg-white/10 rounded-lg transition-colors"
                   title="Share"
                 >
-                  <Share2 size={14} className="sm:w-4 sm:h-4 text-white" />
+                  <Share2 size={12} className="xs:w-4 xs:h-4 text-white" />
                 </button>
                 
                 <img
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
                   alt="User"
-                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full"
+                  className="w-5 h-5 xs:w-6 xs:h-6 rounded-full"
                 />
                 
                 <button
                   onClick={closeModal}
-                  className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                  className="p-1.5 xs:p-2 hover:bg-white/10 rounded-lg transition-colors"
                 >
-                  <X size={16} className="sm:w-5 sm:h-5 text-white" />
+                  <X size={14} className="xs:w-5 xs:h-5 text-white" />
                 </button>
               </div>
             </div>
@@ -470,7 +470,7 @@ export default function Discover() {
           <div className="flex-1 flex items-center justify-center bg-black relative">
             {/* Previous Image (Left) */}
             {getPreviousImage() && (
-              <div className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 z-10">
+              <div className="absolute left-1 xs:left-2 top-1/2 transform -translate-y-1/2 z-10">
                 <button
                   onClick={handlePreviousImage}
                   className="group relative"
@@ -478,11 +478,11 @@ export default function Discover() {
                   <img
                     src={getPreviousImage()?.image}
                     alt="Previous"
-                    className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-cover rounded-lg blur-sm opacity-60 group-hover:opacity-80 group-hover:blur-none transition-all duration-300"
+                    className="w-8 h-8 xs:w-12 xs:h-12 sm:w-16 sm:h-16 object-cover rounded-lg blur-sm opacity-60 group-hover:opacity-80 group-hover:blur-none transition-all duration-300"
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-4 h-4 xs:w-6 xs:h-6 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-2 h-2 xs:w-3 xs:h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                       </svg>
                     </div>
@@ -492,7 +492,7 @@ export default function Discover() {
             )}
 
             {/* Main Image */}
-            <div className="flex items-center justify-center max-w-full max-h-full px-2 sm:px-4">
+            <div className="flex items-center justify-center max-w-full max-h-full px-1 xs:px-2">
               <img
                 src={selectedImage.image}
                 alt={selectedImage.title}
@@ -502,7 +502,7 @@ export default function Discover() {
 
             {/* Next Image (Right) */}
             {getNextImage() && (
-              <div className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 z-10">
+              <div className="absolute right-1 xs:right-2 top-1/2 transform -translate-y-1/2 z-10">
                 <button
                   onClick={handleNextImage}
                   className="group relative"
@@ -510,11 +510,11 @@ export default function Discover() {
                   <img
                     src={getNextImage()?.image}
                     alt="Next"
-                    className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-cover rounded-lg blur-sm opacity-60 group-hover:opacity-80 group-hover:blur-none transition-all duration-300"
+                    className="w-8 h-8 xs:w-12 xs:h-12 sm:w-16 sm:h-16 object-cover rounded-lg blur-sm opacity-60 group-hover:opacity-80 group-hover:blur-none transition-all duration-300"
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-4 h-4 xs:w-6 xs:h-6 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-2 h-2 xs:w-3 xs:h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
@@ -525,45 +525,45 @@ export default function Discover() {
           </div>
 
           {/* Prompt Section Below Image */}
-          <div className="bg-black p-3 sm:p-4 md:p-6">
-            <div className="max-w-4xl mx-auto overflow-hidden">
+          <div className="bg-black p-2 xs:p-3 sm:p-4">
+            <div className="max-w-full mx-auto overflow-hidden">
               <div className="flex items-start gap-3 mb-2">
-                <span className="text-gray-400 text-xs sm:text-sm font-medium">Prompt</span>
+                <span className="text-gray-400 text-xs font-medium">Prompt</span>
               </div>
               <p 
-                className="text-white leading-relaxed text-xs sm:text-sm md:text-base mb-4 sm:mb-6 cursor-pointer transition-all duration-300 hover:opacity-80 break-words"
+                className="text-white leading-relaxed text-xs mb-3 xs:mb-4 cursor-pointer transition-all duration-300 hover:opacity-80 break-words"
                 title={selectedImage.prompt}
               >
-                {selectedImage.prompt.length > 100 
-                  ? `${selectedImage.prompt.substring(0, 100)}...` 
+                {selectedImage.prompt.length > 80 
+                  ? `${selectedImage.prompt.substring(0, 80)}...` 
                   : selectedImage.prompt
                 }
               </p>
               
               {/* Action Buttons */}
-              <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 flex-wrap">
+              <div className="flex items-center justify-center gap-2 xs:gap-3 sm:gap-4 flex-wrap">
                 <button
                   onClick={() => handleLike(selectedImage.id)}
-                  className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 hover:bg-white/10 rounded-lg transition-colors"
+                  className="flex flex-col items-center gap-1 p-2 hover:bg-white/10 rounded-lg transition-colors"
                 >
-                  <Heart size={16} className="sm:w-5 sm:h-5 text-white" />
-                  <span className="text-white text-xs sm:text-sm">Like</span>
+                  <Heart size={14} className="text-white" />
+                  <span className="text-white text-xs">Like</span>
                 </button>
                 
                 <button
                   onClick={() => handleFavorite(selectedImage.id)}
-                  className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 hover:bg-white/10 rounded-lg transition-colors"
+                  className="flex flex-col items-center gap-1 p-2 hover:bg-white/10 rounded-lg transition-colors"
                 >
-                  <Star size={16} className="sm:w-5 sm:h-5 text-white" />
-                  <span className="text-white text-xs sm:text-sm">Favorite</span>
+                  <Star size={14} className="text-white" />
+                  <span className="text-white text-xs">Favorite</span>
                 </button>
                 
                 <button
                   onClick={() => console.log('Dislike:', selectedImage.id)}
-                  className="flex flex-col items-center gap-1 sm:gap-2 p-2 sm:p-3 hover:bg-white/10 rounded-lg transition-colors"
+                  className="flex flex-col items-center gap-1 p-2 hover:bg-white/10 rounded-lg transition-colors"
                 >
-                  <ThumbsDown size={16} className="sm:w-5 sm:h-5 text-white" />
-                  <span className="text-white text-xs sm:text-sm">Dislike</span>
+                  <ThumbsDown size={14} className="text-white" />
+                  <span className="text-white text-xs">Dislike</span>
                 </button>
               </div>
             </div>
