@@ -27,17 +27,17 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
       </div>
 
       {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      <div className="max-w-4xl mx-auto px-2 xs:px-4 sm:px-6 py-4 xs:py-6 sm:py-8 md:py-12">
         {/* Introduction */}
-        <div className="mb-8 sm:mb-12">
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 sm:p-8 border border-green-200 dark:border-green-800">
-            <div className="flex items-start gap-4">
+        <div className="mb-4 xs:mb-6 sm:mb-8 md:mb-12">
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg xs:rounded-xl p-3 xs:p-4 sm:p-6 md:p-8 border border-green-200 dark:border-green-800">
+            <div className="flex items-start gap-2 xs:gap-3 sm:gap-4">
               <div className="flex-shrink-0">
-                <Shield className="w-8 h-8 text-green-600" />
+                <Shield className="w-5 h-5 xs:w-6 xs:h-6 sm:w-8 sm:h-8 text-green-600" />
               </div>
               <div>
-                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3">Your Privacy Matters</h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                <h2 className="text-sm xs:text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white mb-2 xs:mb-3">Your Privacy Matters</h2>
+                <p className="text-xs xs:text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
                   At Perplexity, we are committed to protecting your privacy and being transparent about how we collect, 
                   use, and share your information. This Privacy Policy explains our practices regarding your personal data.
                 </p>
@@ -47,18 +47,18 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
         </div>
 
         {/* Privacy Sections */}
-        <div className="space-y-8 sm:space-y-12">
+        <div className="space-y-4 xs:space-y-6 sm:space-y-8 md:space-y-12">
           {/* Section 1: Information We Collect */}
           <section>
-            <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
-                <Database className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+            <div className="flex items-center gap-2 xs:gap-3 mb-2 xs:mb-3 sm:mb-4 md:mb-6">
+              <div className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                <Database className="w-3 h-3 xs:w-4 xs:h-4 text-blue-600 dark:text-blue-400" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Information We Collect</h3>
+              <h3 className="text-sm xs:text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white">Information We Collect</h3>
             </div>
-            <div className="ml-11 space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+            <div className="ml-8 xs:ml-10 sm:ml-11 space-y-2 xs:space-y-3 sm:space-y-4 text-xs xs:text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>We collect information you provide directly to us, such as:</p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
+              <ul className="list-disc list-inside space-y-1 xs:space-y-2 ml-2 xs:ml-3 sm:ml-4">
                 <li><strong>Account Information:</strong> Name, email address, password, and profile details</li>
                 <li><strong>Search Queries:</strong> Questions and prompts you submit to our AI system</li>
                 <li><strong>Generated Content:</strong> Images, text, and other content created using our services</li>
@@ -66,7 +66,7 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
                 <li><strong>Payment Information:</strong> Billing details for premium subscriptions</li>
               </ul>
               <p>We also automatically collect certain information:</p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
+              <ul className="list-disc list-inside space-y-1 xs:space-y-2 ml-2 xs:ml-3 sm:ml-4">
                 <li><strong>Usage Data:</strong> How you interact with our services</li>
                 <li><strong>Device Information:</strong> Browser type, operating system, IP address</li>
                 <li><strong>Cookies:</strong> Small files stored on your device for functionality and analytics</li>
@@ -76,15 +76,15 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
 
           {/* Section 2: How We Use Your Information */}
           <section>
-            <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
-                <Eye className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+            <div className="flex items-center gap-2 xs:gap-3 mb-2 xs:mb-3 sm:mb-4 md:mb-6">
+              <div className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
+                <Eye className="w-3 h-3 xs:w-4 xs:h-4 text-purple-600 dark:text-purple-400" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">How We Use Your Information</h3>
+              <h3 className="text-sm xs:text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white">How We Use Your Information</h3>
             </div>
-            <div className="ml-11 space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+            <div className="ml-8 xs:ml-10 sm:ml-11 space-y-2 xs:space-y-3 sm:space-y-4 text-xs xs:text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
               <p>We use the information we collect to:</p>
-              <ul className="list-disc list-inside space-y-2 ml-4">
+              <ul className="list-disc list-inside space-y-1 xs:space-y-2 ml-2 xs:ml-3 sm:ml-4">
                 <li>Provide, maintain, and improve our AI services</li>
                 <li>Process your search queries and generate responses</li>
                 <li>Personalize your experience and recommendations</li>
@@ -276,18 +276,18 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onBack }) => {
         </div>
 
         {/* Contact Information */}
-        <div className="mt-12 sm:mt-16">
-          <div className="bg-gray-50 dark:bg-[#1C1C1C] rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-[#3C3C3C]">
-            <div className="flex items-start gap-4">
+        <div className="mt-6 xs:mt-8 sm:mt-12 md:mt-16">
+          <div className="bg-gray-50 dark:bg-[#1C1C1C] rounded-lg xs:rounded-xl p-3 xs:p-4 sm:p-6 md:p-8 border border-gray-200 dark:border-[#3C3C3C]">
+            <div className="flex items-start gap-2 xs:gap-3 sm:gap-4">
               <div className="flex-shrink-0">
-                <Mail className="w-6 h-6 text-blue-600" />
+                <Mail className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 text-blue-600" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Contact Us</h3>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
+                <h3 className="text-sm xs:text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1 xs:mb-2">Contact Us</h3>
+                <p className="text-xs xs:text-sm sm:text-base text-gray-700 dark:text-gray-300 mb-2 xs:mb-3 sm:mb-4">
                   If you have any questions about this Privacy Policy or our privacy practices, please contact us:
                 </p>
-                <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                <div className="space-y-1 xs:space-y-2 text-xs xs:text-sm text-gray-600 dark:text-gray-400">
                   <p>Email: privacy@perplexity.ai</p>
                   <p>Address: 123 AI Street, San Francisco, CA 94105</p>
                   <p>Phone: +1 (555) 123-4567</p>
